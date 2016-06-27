@@ -11,6 +11,7 @@
 		D9513DC51D21ABBD0048B47E /* DeepDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */; };
 		D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */; };
 		D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD41D21ABDA0048B47E /* DeepDiff.swift */; };
+		D9513DD71D21B24C0048B47E /* SectionedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD61D21B24C0048B47E /* SectionedCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDiffTests.swift; sourceTree = "<group>"; };
 		D9513DCB1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9513DD41D21ABDA0048B47E /* DeepDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepDiff.swift; sourceTree = "<group>"; };
+		D9513DD61D21B24C0048B47E /* SectionedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionedCollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				D9513DBD1D21ABBD0048B47E /* DeepDiff.h */,
 				D9513DBF1D21ABBD0048B47E /* Info.plist */,
 				D9513DD41D21ABDA0048B47E /* DeepDiff.swift */,
+				D9513DD61D21B24C0048B47E /* SectionedCollection.swift */,
 			);
 			path = DeepDiff;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9513DD71D21B24C0048B47E /* SectionedCollection.swift in Sources */,
 				D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +389,7 @@
 				D9513DD01D21ABBD0048B47E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D9513DD11D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "DeepDiffTests" */ = {
 			isa = XCConfigurationList;
@@ -393,6 +398,7 @@
 				D9513DD31D21ABBD0048B47E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
