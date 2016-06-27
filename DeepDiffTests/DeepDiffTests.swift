@@ -24,4 +24,14 @@ class DeepDiffTests: XCTestCase {
         XCTAssertEqual([], diff)
         XCTAssertEqual([], updates)
     }
+
+    func testRandomNonEmptySame() {
+        let n = 10
+        (0..<n).forEach { _ in
+            let x: [Int] = randomArray()
+            let (diff, updates) = x.deepDiff(x)
+            XCTAssertEqual([], diff)
+            XCTAssertEqual([], updates)
+        }
+    }
 }

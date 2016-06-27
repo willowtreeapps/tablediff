@@ -76,7 +76,9 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     }
 
     /// Apply a diff to this sequence
-    public func applyDiff(diff: [DiffStep<Self.Generator.Element, Self.Index>]) -> Self {
+    public func apply(diff diff: [DiffStep<Self.Generator.Element, Self.Index>],
+                       updates: [Update<Self.Index, Self.Generator.Element>]) -> Self
+    {
         return self
     }
     
