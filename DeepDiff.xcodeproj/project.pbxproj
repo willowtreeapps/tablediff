@@ -9,13 +9,28 @@
 /* Begin PBXBuildFile section */
 		C6F57B941D21A639002A3D4E /* DeepDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F57B931D21A639002A3D4E /* DeepDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F57B9C1D21A645002A3D4E /* DeepDif.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F57B9B1D21A645002A3D4E /* DeepDif.swift */; };
+		D9513DA81D21AABE0048B47E /* DeepDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DA71D21AABE0048B47E /* DeepDiffTests.swift */; };
+		D9513DAA1D21AABE0048B47E /* DeepDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F57B901D21A639002A3D4E /* DeepDiff.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D9513DAB1D21AABE0048B47E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6F57B871D21A639002A3D4E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6F57B8F1D21A639002A3D4E;
+			remoteInfo = DeepDiff;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C6F57B901D21A639002A3D4E /* DeepDiff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepDiff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6F57B931D21A639002A3D4E /* DeepDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepDiff.h; sourceTree = "<group>"; };
 		C6F57B951D21A639002A3D4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6F57B9B1D21A645002A3D4E /* DeepDif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepDif.swift; sourceTree = "<group>"; };
+		D9513DA51D21AABE0048B47E /* DeepDiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeepDiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9513DA71D21AABE0048B47E /* DeepDiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDiffTests.swift; sourceTree = "<group>"; };
+		D9513DA91D21AABE0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +41,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D9513DA21D21AABE0048B47E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9513DAA1D21AABE0048B47E /* DeepDiff.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				C6F57B921D21A639002A3D4E /* DeepDiff */,
+				D9513DA61D21AABE0048B47E /* DeepDiffTests */,
 				C6F57B911D21A639002A3D4E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				C6F57B901D21A639002A3D4E /* DeepDiff.framework */,
+				D9513DA51D21AABE0048B47E /* DeepDiffTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,6 +78,15 @@
 				C6F57B951D21A639002A3D4E /* Info.plist */,
 			);
 			path = DeepDiff;
+			sourceTree = "<group>";
+		};
+		D9513DA61D21AABE0048B47E /* DeepDiffTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9513DA71D21AABE0048B47E /* DeepDiffTests.swift */,
+				D9513DA91D21AABE0048B47E /* Info.plist */,
+			);
+			path = DeepDiffTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,16 +121,38 @@
 			productReference = C6F57B901D21A639002A3D4E /* DeepDiff.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		D9513DA41D21AABE0048B47E /* DeepDiffTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9513DAF1D21AABE0048B47E /* Build configuration list for PBXNativeTarget "DeepDiffTests" */;
+			buildPhases = (
+				D9513DA11D21AABE0048B47E /* Sources */,
+				D9513DA21D21AABE0048B47E /* Frameworks */,
+				D9513DA31D21AABE0048B47E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9513DAC1D21AABE0048B47E /* PBXTargetDependency */,
+			);
+			name = DeepDiffTests;
+			productName = DeepDiffTests;
+			productReference = D9513DA51D21AABE0048B47E /* DeepDiffTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C6F57B871D21A639002A3D4E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = WillowTree;
 				TargetAttributes = {
 					C6F57B8F1D21A639002A3D4E = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					D9513DA41D21AABE0048B47E = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
@@ -114,12 +170,20 @@
 			projectRoot = "";
 			targets = (
 				C6F57B8F1D21A639002A3D4E /* DeepDiff */,
+				D9513DA41D21AABE0048B47E /* DeepDiffTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C6F57B8E1D21A639002A3D4E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9513DA31D21AABE0048B47E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -137,7 +201,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D9513DA11D21AABE0048B47E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9513DA81D21AABE0048B47E /* DeepDiffTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D9513DAC1D21AABE0048B47E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C6F57B8F1D21A639002A3D4E /* DeepDiff */;
+			targetProxy = D9513DAB1D21AABE0048B47E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C6F57B961D21A639002A3D4E /* Debug */ = {
@@ -266,6 +346,26 @@
 			};
 			name = Release;
 		};
+		D9513DAD1D21AABE0048B47E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = DeepDiffTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.DeepDiffTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D9513DAE1D21AABE0048B47E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = DeepDiffTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.DeepDiffTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -283,6 +383,15 @@
 			buildConfigurations = (
 				C6F57B991D21A639002A3D4E /* Debug */,
 				C6F57B9A1D21A639002A3D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9513DAF1D21AABE0048B47E /* Build configuration list for PBXNativeTarget "DeepDiffTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9513DAD1D21AABE0048B47E /* Debug */,
+				D9513DAE1D21AABE0048B47E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
