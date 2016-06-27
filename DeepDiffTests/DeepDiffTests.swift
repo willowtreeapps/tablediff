@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import DeepDiff
 
 class DeepDiffTests: XCTestCase {
     

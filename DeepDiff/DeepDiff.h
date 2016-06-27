@@ -2,7 +2,7 @@
 //  DeepDiff.h
 //  DeepDiff
 //
-//  Created by Kent White on 6/27/16.
+//  Created by Ian Terrell on 6/27/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
 //
 
