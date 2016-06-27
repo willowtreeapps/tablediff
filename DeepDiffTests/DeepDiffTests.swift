@@ -7,29 +7,21 @@
 //
 
 import XCTest
-@testable import DeepDiff
-
-extension Int: SequenceDiffable {
-    public func identifiedSame(other: Int) -> Bool {
-        return self == other
-    }
-}
+import DeepDiff
 
 class DeepDiffTests: XCTestCase {
-    
-    func testEmpty() {
+
+    func testEmptySame() {
         let x: [Int] = []
-        let y: [Int] = []
-        let (diff, updates) = x.deepDiff(y)
+        let (diff, updates) = x.deepDiff(x)
         XCTAssertEqual([], diff)
         XCTAssertEqual([], updates)
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
+
+    func testNonEmptySame() {
+        let x: [Int] = [1, 2, 3]
+        let (diff, updates) = x.deepDiff(x)
+        XCTAssertEqual([], diff)
+        XCTAssertEqual([], updates)
     }
-    
 }

@@ -12,6 +12,9 @@
 		D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */; };
 		D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD41D21ABDA0048B47E /* DeepDiff.swift */; };
 		D9513DD71D21B24C0048B47E /* SectionedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD61D21B24C0048B47E /* SectionedCollection.swift */; };
+		D9513DD91D21B6760048B47E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD81D21B6760048B47E /* Extensions.swift */; };
+		D9513DDB1D21BA380048B47E /* InsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDA1D21BA380048B47E /* InsertTests.swift */; };
+		D9513DDD1D21BAA30048B47E /* DeleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDC1D21BAA30048B47E /* DeleteTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,9 @@
 		D9513DCB1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9513DD41D21ABDA0048B47E /* DeepDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepDiff.swift; sourceTree = "<group>"; };
 		D9513DD61D21B24C0048B47E /* SectionedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionedCollection.swift; sourceTree = "<group>"; };
+		D9513DD81D21B6760048B47E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D9513DDA1D21BA380048B47E /* InsertTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertTests.swift; sourceTree = "<group>"; };
+		D9513DDC1D21BAA30048B47E /* DeleteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +92,10 @@
 		D9513DC81D21ABBD0048B47E /* DeepDiffTests */ = {
 			isa = PBXGroup;
 			children = (
+				D9513DD81D21B6760048B47E /* Extensions.swift */,
 				D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */,
+				D9513DDA1D21BA380048B47E /* InsertTests.swift */,
+				D9513DDC1D21BAA30048B47E /* DeleteTests.swift */,
 				D9513DCB1D21ABBD0048B47E /* Info.plist */,
 			);
 			path = DeepDiffTests;
@@ -210,6 +219,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */,
+				D9513DD91D21B6760048B47E /* Extensions.swift in Sources */,
+				D9513DDD1D21BAA30048B47E /* DeleteTests.swift in Sources */,
+				D9513DDB1D21BA380048B47E /* InsertTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
