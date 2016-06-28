@@ -16,6 +16,7 @@
 		D9513DDB1D21BA380048B47E /* InsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDA1D21BA380048B47E /* InsertTests.swift */; };
 		D9513DDD1D21BAA30048B47E /* DeleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDC1D21BAA30048B47E /* DeleteTests.swift */; };
 		D9513DDF1D21BF7D0048B47E /* ApplyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDE1D21BF7D0048B47E /* ApplyTests.swift */; };
+		D9DB58131D22D14300B5870F /* MoveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DB58121D22D14300B5870F /* MoveTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		D9513DDA1D21BA380048B47E /* InsertTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertTests.swift; sourceTree = "<group>"; };
 		D9513DDC1D21BAA30048B47E /* DeleteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTests.swift; sourceTree = "<group>"; };
 		D9513DDE1D21BF7D0048B47E /* ApplyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyTests.swift; sourceTree = "<group>"; };
+		D9DB58121D22D14300B5870F /* MoveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */,
 				D9513DDA1D21BA380048B47E /* InsertTests.swift */,
 				D9513DDC1D21BAA30048B47E /* DeleteTests.swift */,
+				D9DB58121D22D14300B5870F /* MoveTests.swift */,
 				D9513DDE1D21BF7D0048B47E /* ApplyTests.swift */,
 				D9513DCB1D21ABBD0048B47E /* Info.plist */,
 			);
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9DB58131D22D14300B5870F /* MoveTests.swift in Sources */,
 				D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */,
 				D9513DD91D21B6760048B47E /* Helpers.swift in Sources */,
 				D9513DDD1D21BAA30048B47E /* DeleteTests.swift in Sources */,
