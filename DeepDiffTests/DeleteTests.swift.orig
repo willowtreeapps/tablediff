@@ -40,9 +40,15 @@ class DeleteTests: XCTestCase {
         let y: [Int] = [1, 2, 3]
         let (diff, updates) = x.deepDiff(y)
         let expectedDiff: [DiffStep<Int,Int>] = [
+<<<<<<< HEAD
             DiffStep.delete(fromIndex: 0, item: 4),
             DiffStep.delete(fromIndex: 3, item: 5),
             DiffStep.delete(fromIndex: 5, item: 6),
+=======
+            DiffStep.delete(fromIndex: 0),
+            DiffStep.delete(fromIndex: 3),
+            DiffStep.delete(fromIndex: 5),
+>>>>>>> cecbc9d... Basic diff calculator, not finished
         ]
         XCTAssertEqual(expectedDiff, diff)
         XCTAssertEqual([], updates)
