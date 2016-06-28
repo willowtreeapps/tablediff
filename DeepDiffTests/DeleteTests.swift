@@ -41,8 +41,8 @@ class DeleteTests: XCTestCase {
         let (diff, updates) = x.deepDiff(y)
         let expectedDiff: [DiffStep<Int,Int>] = [
             DiffStep.delete(fromIndex: 0),
-            DiffStep.delete(fromIndex: 2),
             DiffStep.delete(fromIndex: 3),
+            DiffStep.delete(fromIndex: 5),
         ]
         XCTAssertEqual(expectedDiff, diff)
         XCTAssertEqual([], updates)

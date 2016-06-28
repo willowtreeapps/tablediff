@@ -74,10 +74,10 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         for i in 1...table.count {
             print(table[i - 1])
         }
-        buildDiff(table, a, b)
+        let diff = buildDiff(table, a, b, a.endIndex, b.endIndex, a.underestimateCount(), b.underestimateCount())
         
         // IMPLEMENT ME!
-        return (diff: [], updates: [])
+        return (diff: diff, updates: [])
     }
 
     /// Apply a diff to this sequence
@@ -102,8 +102,36 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         return table
     }
     
-    func buildDiff(table: [[Int]], _ x: Self, _ y: Self) -> [DiffStep<Self.Generator.Element, Self.Index>] {
-        return []
+    func buildDiff(table: [[Int]], _ x: Self, _ y: Self, _ i: Index, _ j: Index, _ ii: Int, _ jj: Int) -> [DiffStep<Self.Generator.Element, Self.Index>] {
+//        this isnt finished!!!!!!!!!!! Theres a better way without all these variables
+        if ii == 0 && jj == 0 {
+            return[]
+        } else if ii == 0 {
+            return buildDiff(table, x, y, i, j.advancedBy(-1), ii, jj - 1) + [DiffStep.insert(atIndex: j.advancedBy(-1), item: y[j.advancedBy(-1)])]
+        } else if jj == 0 {
+            return buildDiff(table, x, y, i.advancedBy(-1), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.advancedBy(-1))]
+        } else if table[ii][jj] == table[ii][jj - 1] {
+            return buildDiff(table, x, y, i, j.advancedBy(-1), ii, jj - 1) + [DiffStep.insert(atIndex: j.advancedBy(-1), item: y[j.advancedBy(-1)])]
+        } else if table[ii][jj] == table[ii-1][jj] {
+            return buildDiff(table, x, y, i.advancedBy(-1), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.advancedBy(-1))]
+        } else {
+            return buildDiff(table, x, y, i.advancedBy(-1), j.advancedBy(-1), ii - 1, jj - 1)
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
