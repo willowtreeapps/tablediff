@@ -51,6 +51,11 @@ public func ==<T, Index>(lhs: DiffStep<T,Index>, rhs: DiffStep<T,Index>) -> Bool
 public struct Update<T: Equatable, Index: Equatable>: Equatable {
     let index: Index
     let newItem: T
+
+    public init(index: Index, newItem: T) {
+        self.index = index
+        self.newItem = newItem
+    }
 }
 
 public func ==<T, Index>(lhs: Update<T,Index>, rhs: Update<T,Index>) -> Bool {
@@ -62,7 +67,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     /// Creates a deep diff between two sequences.
     public func deepDiff(b: Self) ->
         (diff: [DiffStep<Self.Generator.Element, Self.Index>],
-        updates: [Update<Self.Index, Self.Generator.Element>])
+        updates: [Update<Self.Generator.Element, Self.Index>])
     {
         let a = self
         let table = buildTable(a, b)
