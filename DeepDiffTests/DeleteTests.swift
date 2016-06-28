@@ -15,7 +15,7 @@ class DeleteTests: XCTestCase {
         let x: [Int] = [0, 1, 2, 3]
         let y: [Int] = [1, 2, 3]
         let (diff, updates) = x.deepDiff(y)
-        XCTAssertEqual([DiffStep.delete(fromIndex: 0)], diff)
+        XCTAssertEqual([DiffStep.delete(fromIndex: 0, item: 0)], diff)
         XCTAssertEqual([], updates)
     }
 
@@ -23,7 +23,7 @@ class DeleteTests: XCTestCase {
         let x: [Int] = [1, 2, 3, 0]
         let y: [Int] = [1, 2, 3]
         let (diff, updates) = x.deepDiff(y)
-        XCTAssertEqual([DiffStep.delete(fromIndex: 3)], diff)
+        XCTAssertEqual([DiffStep.delete(fromIndex: 3, item: 0)], diff)
         XCTAssertEqual([], updates)
     }
 
@@ -31,7 +31,7 @@ class DeleteTests: XCTestCase {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 2, 3]
         let (diff, updates) = x.deepDiff(y)
-        XCTAssertEqual([DiffStep.delete(fromIndex: 2)], diff)
+        XCTAssertEqual([DiffStep.delete(fromIndex: 2, item: 0)], diff)
         XCTAssertEqual([], updates)
     }
 
@@ -40,9 +40,9 @@ class DeleteTests: XCTestCase {
         let y: [Int] = [1, 2, 3]
         let (diff, updates) = x.deepDiff(y)
         let expectedDiff: [DiffStep<Int,Int>] = [
-            DiffStep.delete(fromIndex: 0),
-            DiffStep.delete(fromIndex: 2),
-            DiffStep.delete(fromIndex: 3),
+            DiffStep.delete(fromIndex: 0, item: 4),
+            DiffStep.delete(fromIndex: 3, item: 5),
+            DiffStep.delete(fromIndex: 5, item: 6),
         ]
         XCTAssertEqual(expectedDiff, diff)
         XCTAssertEqual([], updates)

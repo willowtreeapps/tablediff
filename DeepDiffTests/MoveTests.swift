@@ -31,7 +31,7 @@ class MoveTests: XCTestCase {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 0, 2, 3]
         let (diff, updates) = x.deepDiff(y)
-        XCTAssertEqual([DiffStep.move(fromIndex: 2, toIndex: 1)], diff)
+        XCTAssertEqual([DiffStep.move(fromIndex: 1, toIndex: 2)], diff)
         XCTAssertEqual([], updates)
     }
 

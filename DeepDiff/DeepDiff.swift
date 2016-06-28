@@ -27,8 +27,38 @@ public protocol SequenceDiffable: Identifiable, Equatable {
 /// state into another state.
 public enum DiffStep<T: Equatable, Index: Equatable>: Equatable {
     case insert(atIndex: Index, item: T)
-    case delete(fromIndex: Index)
+    case delete(fromIndex: Index, item: T)
     case move(fromIndex: Index, toIndex: Index)
+    
+    var isInsertion: Bool {
+        switch(self) {
+        case .insert:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public var idx: Index {
+        switch(self) {
+        case .insert(let i, _):
+            return i
+        case .delete(let i, _):
+            return i
+        case .move(let from, _):
+            return from
+        }
+    }
+    public var value: T? {
+        switch(self) {
+        case .insert(_, let item):
+            return item
+        case .delete(_, let item):
+            return item
+        default:
+            return nil
+        }
+    }
 }
 
 public func ==<T, Index>(lhs: DiffStep<T,Index>, rhs: DiffStep<T,Index>) -> Bool {
@@ -62,48 +92,102 @@ public func ==<T, Index>(lhs: Update<T,Index>, rhs: Update<T,Index>) -> Bool {
     return lhs.index == rhs.index && lhs.newItem == rhs.newItem
 }
 
-public extension CollectionType where Self.Generator.Element: SequenceDiffable {
-    
+public extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.Index: BidirectionalIndexType {
     /// Creates a deep diff between two sequences.
     public func deepDiff(b: Self) ->
         (diff: [DiffStep<Self.Generator.Element, Self.Index>],
         updates: [Update<Self.Generator.Element, Self.Index>])
     {
         let a = self
-        let table = buildTable(a, b)
-        for i in 1...table.count {
-            print(table[i - 1])
-        }
-        buildDiff(table, a, b)
-        
-        // IMPLEMENT ME!
-        return (diff: [], updates: [])
+        let (table, updates) = buildTable(a, b)
+        let diff = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
+        let processedDiff = processDiff(diff)
+        return (diff: processedDiff, updates: updates)
     }
 
     /// Apply a diff to this sequence
     public func apply(diff diff: [DiffStep<Self.Generator.Element, Self.Index>],
-                       updates: [Update<Self.Index, Self.Generator.Element>]) -> Self
+                       updates: [Update<Self.Generator.Element, Self.Index>]) -> Self
+        
     {
         return self
     }
     
-    func buildTable(a: Self, _ b: Self) -> [[Int]] {
-        //refactor this to not use underestimate count for none collections
-        var table = Array(count: a.underestimateCount() + 1, repeatedValue: Array(count: b.underestimateCount() + 1, repeatedValue: 0))
+    func buildTable(a: Self, _ b: Self) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
+        var table = Array(count: Int(a.count.toIntMax()) + 1, repeatedValue: Array(count: Int(b.count.toIntMax()) + 1, repeatedValue: 0))
+        var updates: [Update<Self.Generator.Element, Self.Index>] = []
         for (i, firstElement) in a.enumerate() {
+            var index = b.startIndex
             for (j, secondElement) in b.enumerate() {
-                if firstElement == secondElement {
+                if firstElement.identifiedSame(secondElement) {
+                    if firstElement != secondElement {
+                        updates.append(Update.init(index: index, newItem: secondElement))
+                    }
                     table[i+1][j+1] = table[i][j] + 1
                 } else {
                     table[i+1][j+1] = max(table[i][j+1], table[i+1][j])
                 }
+                index = index.successor()
             }
         }
-        return table
+        return (table, updates)
     }
     
-    func buildDiff(table: [[Int]], _ x: Self, _ y: Self) -> [DiffStep<Self.Generator.Element, Self.Index>] {
-        return []
+    func buildDiff(table: [[Int]], _ x: Self, _ y: Self, _ i: Index, _ j: Index, _ ii: Int, _ jj: Int) -> [DiffStep<Self.Generator.Element, Self.Index>] {
+        if ii == 0 && jj == 0 {
+            return[]
+        } else if ii == 0 {
+            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) + [DiffStep.insert(atIndex: j.predecessor(), item: y[j.predecessor()])]
+        } else if jj == 0 {
+            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.predecessor(), item: x[i.predecessor()])]
+        } else if table[ii][jj] == table[ii][jj - 1] {
+            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) + [DiffStep.insert(atIndex: j.predecessor(), item: y[j.predecessor()])]
+        } else if table[ii][jj] == table[ii-1][jj] {
+            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.predecessor(), item: x[i.predecessor()])]
+        } else {
+            return buildDiff(table, x, y, i.predecessor(), j.predecessor(), ii - 1, jj - 1)
+        }
+    }
+    
+    // Can be improved with getting rid of the elements once we are done with them and also using a hash table implementation
+    func processDiff(diff: [DiffStep<Self.Generator.Element, Self.Index>]) -> [DiffStep<Self.Generator.Element, Self.Index>]  {
+        var newDiff: [DiffStep<Self.Generator.Element, Self.Index>] = []
+        for step in diff {
+            guard let stepValue = step.value else {
+                continue
+            }
+            var foundIdx: Self.Index?
+            for step2 in diff {
+                guard let step2Value = step2.value else {
+                    continue
+                }
+                if step2 != step &&  step2Value.identifiedSame(stepValue) {
+                    if step.idx == step2.idx {
+                        if step2Value == stepValue{
+                            // This is where we would account for a DiffSteps that are insert and delete at the same index for the same object
+                            break
+                        }
+                    } else {
+                        foundIdx = step2.idx
+                    }
+                    break
+                }
+            }
+            
+            if let foundIdx = foundIdx {
+                if step.isInsertion {
+                    if newDiff.indexOf(DiffStep.move(fromIndex: foundIdx, toIndex: step.idx)) == nil {
+                        newDiff.append(DiffStep.move(fromIndex: foundIdx, toIndex:step.idx))
+                    }
+                } else {
+                    if newDiff.indexOf(DiffStep.move(fromIndex: step.idx, toIndex: foundIdx)) == nil {
+                        newDiff.append(DiffStep.move(fromIndex: step.idx, toIndex: foundIdx))
+                    }
+                }
+            } else {
+                newDiff.append(step)
+            }
+        }
+        return newDiff
     }
 }
-
