@@ -47,4 +47,22 @@ class MoveTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
+    func testRandomMoves() {
+        let n = 10
+        for _ in 0..<n {
+            let x = randomArray()
+            let y = x.shuffled()
+            let (diff, updates) = x.deepDiff(y)
+            for d in diff {
+                switch d {
+                case .delete(_): fallthrough
+                case .insert(_, _):
+                    XCTFail("Should only have move instructions")
+                default:
+                    break
+                }
+            }
+            XCTAssertEqual([], updates)
+        }
+    }
 }
