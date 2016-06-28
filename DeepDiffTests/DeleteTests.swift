@@ -27,7 +27,7 @@ class DeleteTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
-    func testDeletetMiddle() {
+    func testDeleteMiddle() {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 2, 3]
         let (diff, updates) = x.deepDiff(y)
