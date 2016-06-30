@@ -101,13 +101,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     {
         let a = self
         let table = buildTable(a, b)
-        for i in 1...table.count {
-            print(table[i - 1])
-        }
         let diff = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, a.underestimateCount(), b.underestimateCount()))
-        
-        
-        // IMPLEMENT ME!
         return (diff: diff, updates: [])
     }
 
@@ -151,8 +145,8 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     }
     
     func processDiff(diff: [DiffStep<Self.Generator.Element, Self.Index>]) -> [DiffStep<Self.Generator.Element, Self.Index>] {
+//        this isnt finished!!!!!!!!!!! Use hash table
         var newDiff: [DiffStep<Self.Generator.Element, Self.Index>] = []
-        print(diff)
         for step in diff {
             var opp: DiffStep<Self.Generator.Element, Self.Index>
             if step.isInsertion {
@@ -160,25 +154,18 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
             } else {
                 opp = DiffStep.insert(atIndex: step.idx!, item: step.value!)
             }
-            print(opp)
             var idx: Self.Index?
             for step2 in diff {
-                if step2 != step {
-                    if step2.value == opp.value {
-                        if (!opp.isInsertion == step.isInsertion) {
-                            idx = step2.idx!
-                            break
-                        }
-                    }
+                if step2 != step &&  step2.value == opp.value && !opp.isInsertion == step.isInsertion {
+                    idx = step2.idx!
+                    break
                 }
-                
             }
             if let idx = idx {
                 if opp.isInsertion {
                     if (newDiff.indexOf(DiffStep.move(fromIndex: opp.idx!, toIndex: idx)) == nil) {
                         newDiff.append(DiffStep.move(fromIndex: opp.idx!, toIndex: idx))
                     }
-                    
                 } else {
                     if (newDiff.indexOf(DiffStep.move(fromIndex: idx, toIndex: opp.idx!)) == nil) {
                         newDiff.append(DiffStep.move(fromIndex: idx, toIndex: opp.idx!))
@@ -187,24 +174,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
             } else {
                 newDiff.append(step)
             }
-            
         }
         return newDiff
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
