@@ -101,7 +101,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     {
         let a = self
         let table = buildTable(a, b)
-        let diff = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, a.underestimateCount(), b.underestimateCount()))
+        let diff = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax())))
         return (diff: diff, updates: [])
     }
 
@@ -113,8 +113,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     }
     
     func buildTable(a: Self, _ b: Self) -> [[Int]] {
-        //refactor this to not use underestimate count for none collections
-        var table = Array(count: a.underestimateCount() + 1, repeatedValue: Array(count: b.underestimateCount() + 1, repeatedValue: 0))
+        var table = Array(count: Int(a.count.toIntMax()) + 1, repeatedValue: Array(count: Int(b.count.toIntMax()) + 1, repeatedValue: 0))
         for (i, firstElement) in a.enumerate() {
             for (j, secondElement) in b.enumerate() {
                 if firstElement == secondElement {
