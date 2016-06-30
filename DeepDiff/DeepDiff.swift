@@ -154,20 +154,28 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
                 opp = DiffStep.insert(atIndex: step.idx!, item: step.value!)
             }
             var idx: Self.Index?
+            var oldIdx = step.idx!
             for step2 in diff {
                 if step2 != step &&  step2.value == opp.value && !opp.isInsertion == step.isInsertion {
-                    idx = step2.idx!
+                    if step.idx! == step2.idx! {
+                        idx = step2.idx!.advancedBy(1)
+                        oldIdx = oldIdx.advancedBy(-1)
+                    } else {
+                        idx = step2.idx!
+                    }
                     break
                 }
             }
             if let idx = idx {
                 if opp.isInsertion {
-                    if (newDiff.indexOf(DiffStep.move(fromIndex: opp.idx!, toIndex: idx)) == nil) {
-                        newDiff.append(DiffStep.move(fromIndex: opp.idx!, toIndex: idx))
+                    if (newDiff.indexOf(DiffStep.move(fromIndex: oldIdx, toIndex: idx)) == nil) {
+                        newDiff.append(DiffStep.move(fromIndex: oldIdx, toIndex: idx))
+                        //newDiff.append(DiffStep.move(fromIndex: idx, toIndex: opp.idx!))
                     }
                 } else {
-                    if (newDiff.indexOf(DiffStep.move(fromIndex: idx, toIndex: opp.idx!)) == nil) {
-                        newDiff.append(DiffStep.move(fromIndex: idx, toIndex: opp.idx!))
+                    if (newDiff.indexOf(DiffStep.move(fromIndex: idx, toIndex: oldIdx)) == nil) {
+                        newDiff.append(DiffStep.move(fromIndex: idx, toIndex:oldIdx))
+                        //newDiff.append(DiffStep.move(fromIndex: opp.idx!, toIndex: idx))
                     }
                 }
             } else {
