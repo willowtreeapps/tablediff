@@ -45,8 +45,8 @@ public enum DiffStep<T: Equatable, Index: Equatable>: Equatable {
             return i
         case .delete(let i, _):
             return i
-        case .move(let from, _):
-            return from
+        case .move(let i, _):
+            return i
         }
     }
     public var value: T? {
@@ -92,14 +92,19 @@ public func ==<T, Index>(lhs: Update<T,Index>, rhs: Update<T,Index>) -> Bool {
     return lhs.index == rhs.index && lhs.newItem == rhs.newItem
 }
 
+public enum UpdateIndicesStyle {
+    case pre
+    case post
+}
+
 public extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.Index: BidirectionalIndexType {
     /// Creates a deep diff between two sequences.
-    public func deepDiff(b: Self) ->
+    public func deepDiff(b: Self, updateStyle: UpdateIndicesStyle = .post) ->
         (diff: [DiffStep<Self.Generator.Element, Self.Index>],
         updates: [Update<Self.Generator.Element, Self.Index>])
     {
         let a = self
-        let (table, updates) = buildTable(a, b)
+        let (table, updates) = buildTable(a, b, updateStyle: updateStyle)
         let diff = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
         let processedDiff = processDiff(diff)
         return (diff: processedDiff, updates: updates)
@@ -113,22 +118,24 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable, 
         return self
     }
     
-    func buildTable(a: Self, _ b: Self) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
+    func buildTable(a: Self, _ b: Self, updateStyle: UpdateIndicesStyle) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
         var table = Array(count: Int(a.count.toIntMax()) + 1, repeatedValue: Array(count: Int(b.count.toIntMax()) + 1, repeatedValue: 0))
         var updates: [Update<Self.Generator.Element, Self.Index>] = []
+        var indexA = a.startIndex
         for (i, firstElement) in a.enumerate() {
-            var index = b.startIndex
+            var indexB = b.startIndex
             for (j, secondElement) in b.enumerate() {
                 if firstElement.identifiedSame(secondElement) {
                     if firstElement != secondElement {
-                        updates.append(Update.init(index: index, newItem: secondElement))
+                        updates.append(Update.init(index: updateStyle == .pre ? indexA: indexB, newItem: secondElement))
                     }
                     table[i+1][j+1] = table[i][j] + 1
                 } else {
                     table[i+1][j+1] = max(table[i][j+1], table[i+1][j])
                 }
-                index = index.successor()
+                indexB = indexB.successor()
             }
+            indexA = indexA.successor()
         }
         return (table, updates)
     }
