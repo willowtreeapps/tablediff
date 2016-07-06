@@ -92,21 +92,19 @@ public func ==<T, Index>(lhs: Update<T,Index>, rhs: Update<T,Index>) -> Bool {
     return lhs.index == rhs.index && lhs.newItem == rhs.newItem
 }
 
+public enum UpdateIndicesStyle {
+    case pre
+    case post
+}
+
 public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     /// Creates a deep diff between two sequences.
-    public func deepDiff(b: Self) ->
-        (diff: [DiffStep<Self.Generator.Element, Self.Index>],
-        updates: [Update<Self.Generator.Element, Self.Index>])
-    {
-        return deepDiff(b, preUpdate: false)
-    }
-    
-    public func deepDiff(b: Self, preUpdate: Bool) ->
+    public func deepDiff(b: Self, updateStyle: UpdateIndicesStyle = .post) ->
         (diff: [DiffStep<Self.Generator.Element, Self.Index>],
         updates: [Update<Self.Generator.Element, Self.Index>])
     {
         let a = self
-        let (table, updates) = buildTable(a, b, preUpdate: preUpdate)
+        let (table, updates) = buildTable(a, b, updateStyle: updateStyle)
         let diff = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax())))
         return (diff: diff, updates: updates)
     }
@@ -119,7 +117,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         return self
     }
     
-    func buildTable(a: Self, _ b: Self, preUpdate: Bool) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
+    func buildTable(a: Self, _ b: Self, updateStyle: UpdateIndicesStyle) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
         var table = Array(count: Int(a.count.toIntMax()) + 1, repeatedValue: Array(count: Int(b.count.toIntMax()) + 1, repeatedValue: 0))
         var updates: [Update<Self.Generator.Element, Self.Index>] = []
         var indexA = a.startIndex
@@ -128,7 +126,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
             for (j, secondElement) in b.enumerate() {
                 if firstElement.identifiedSame(secondElement) {
                     if firstElement != secondElement {
-                        updates.append(Update.init(index: preUpdate ? indexA: indexB, newItem: secondElement))
+                        updates.append(Update.init(index: updateStyle == .pre ? indexA: indexB, newItem: secondElement))
                     }
                     table[i+1][j+1] = table[i][j] + 1
                 } else {
