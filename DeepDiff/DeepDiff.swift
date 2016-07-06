@@ -98,8 +98,15 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         (diff: [DiffStep<Self.Generator.Element, Self.Index>],
         updates: [Update<Self.Generator.Element, Self.Index>])
     {
+        return deepDiff(b, preUpdate: false)
+    }
+    
+    public func deepDiff(b: Self, preUpdate: Bool) ->
+        (diff: [DiffStep<Self.Generator.Element, Self.Index>],
+        updates: [Update<Self.Generator.Element, Self.Index>])
+    {
         let a = self
-        let (table, updates) = buildTable(a, b)
+        let (table, updates) = buildTable(a, b, preUpdate: preUpdate)
         let diff = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax())))
         return (diff: diff, updates: updates)
     }
@@ -112,22 +119,24 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         return self
     }
     
-    func buildTable(a: Self, _ b: Self) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
+    func buildTable(a: Self, _ b: Self, preUpdate: Bool) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
         var table = Array(count: Int(a.count.toIntMax()) + 1, repeatedValue: Array(count: Int(b.count.toIntMax()) + 1, repeatedValue: 0))
         var updates: [Update<Self.Generator.Element, Self.Index>] = []
+        var indexA = a.startIndex
         for (i, firstElement) in a.enumerate() {
-            var index = b.startIndex
+            var indexB = b.startIndex
             for (j, secondElement) in b.enumerate() {
                 if firstElement.identifiedSame(secondElement) {
                     if firstElement != secondElement {
-                        updates.append(Update.init(index: index, newItem: secondElement))
+                        updates.append(Update.init(index: preUpdate ? indexA: indexB, newItem: secondElement))
                     }
                     table[i+1][j+1] = table[i][j] + 1
                 } else {
                     table[i+1][j+1] = max(table[i][j+1], table[i+1][j])
                 }
-                index = index.advancedBy(1)
+                indexB = indexB.advancedBy(1)
             }
+            indexA = indexA.advancedBy(1)
         }
         return (table, updates)
     }
