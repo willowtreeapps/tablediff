@@ -97,7 +97,7 @@ public enum UpdateIndicesStyle {
     case post
 }
 
-public extension CollectionType where Self.Generator.Element: SequenceDiffable {
+public extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.Index: BidirectionalIndexType {
     /// Creates a deep diff between two sequences.
     public func deepDiff(b: Self, updateStyle: UpdateIndicesStyle = .post) ->
         (diff: [DiffStep<Self.Generator.Element, Self.Index>],
@@ -105,8 +105,9 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     {
         let a = self
         let (table, updates) = buildTable(a, b, updateStyle: updateStyle)
-        let diff = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax())))
-        return (diff: diff, updates: updates)
+        let diff = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
+        let processedDiff = processDiff(diff)
+        return (diff: processedDiff, updates: updates)
     }
 
     /// Apply a diff to this sequence
@@ -132,9 +133,9 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
                 } else {
                     table[i+1][j+1] = max(table[i][j+1], table[i+1][j])
                 }
-                indexB = indexB.advancedBy(1)
+                indexB = indexB.successor()
             }
-            indexA = indexA.advancedBy(1)
+            indexA = indexA.successor()
         }
         return (table, updates)
     }
@@ -143,15 +144,15 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         if ii == 0 && jj == 0 {
             return[]
         } else if ii == 0 {
-            return buildDiff(table, x, y, i, j.advancedBy(-1), ii, jj - 1) + [DiffStep.insert(atIndex: j.advancedBy(-1), item: y[j.advancedBy(-1)])]
+            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) + [DiffStep.insert(atIndex: j.predecessor(), item: y[j.predecessor()])]
         } else if jj == 0 {
-            return buildDiff(table, x, y, i.advancedBy(-1), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.advancedBy(-1), item: x[i.advancedBy(-1)])]
+            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.predecessor(), item: x[i.predecessor()])]
         } else if table[ii][jj] == table[ii][jj - 1] {
-            return buildDiff(table, x, y, i, j.advancedBy(-1), ii, jj - 1) + [DiffStep.insert(atIndex: j.advancedBy(-1), item: y[j.advancedBy(-1)])]
+            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) + [DiffStep.insert(atIndex: j.predecessor(), item: y[j.predecessor()])]
         } else if table[ii][jj] == table[ii-1][jj] {
-            return buildDiff(table, x, y, i.advancedBy(-1), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.advancedBy(-1), item: x[i.advancedBy(-1)])]
+            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) + [DiffStep.delete(fromIndex: i.predecessor(), item: x[i.predecessor()])]
         } else {
-            return buildDiff(table, x, y, i.advancedBy(-1), j.advancedBy(-1), ii - 1, jj - 1)
+            return buildDiff(table, x, y, i.predecessor(), j.predecessor(), ii - 1, jj - 1)
         }
     }
     
