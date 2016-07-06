@@ -99,8 +99,8 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         updates: [Update<Self.Generator.Element, Self.Index>])
     {
         let a = self
-        let table = buildTable(a, b)
-        let (diff, updates) = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax())))
+        let (table, updates) = buildTable(a, b)
+        let diff = processDiff(buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax())))
         return (diff: diff, updates: updates)
     }
 
@@ -112,18 +112,24 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
         return self
     }
     
-    func buildTable(a: Self, _ b: Self) -> [[Int]] {
+    func buildTable(a: Self, _ b: Self) -> ([[Int]], [Update<Self.Generator.Element, Self.Index>]) {
         var table = Array(count: Int(a.count.toIntMax()) + 1, repeatedValue: Array(count: Int(b.count.toIntMax()) + 1, repeatedValue: 0))
+        var updates: [Update<Self.Generator.Element, Self.Index>] = []
         for (i, firstElement) in a.enumerate() {
+            var index = b.startIndex
             for (j, secondElement) in b.enumerate() {
-                if firstElement == secondElement {
+                if firstElement.identifiedSame(secondElement) {
+                    if firstElement != secondElement {
+                        updates.append(Update.init(index: index, newItem: secondElement))
+                    }
                     table[i+1][j+1] = table[i][j] + 1
                 } else {
                     table[i+1][j+1] = max(table[i][j+1], table[i+1][j])
                 }
+                index = index.advancedBy(1)
             }
         }
-        return table
+        return (table, updates)
     }
     
     func buildDiff(table: [[Int]], _ x: Self, _ y: Self, _ i: Index, _ j: Index, _ ii: Int, _ jj: Int) -> [DiffStep<Self.Generator.Element, Self.Index>] {
@@ -143,15 +149,13 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
     }
     
     // Can be improved with getting rid of the elements once we are done with them and also using a hash table implementation
-    func processDiff(diff: [DiffStep<Self.Generator.Element, Self.Index>]) -> ([DiffStep<Self.Generator.Element, Self.Index>], [Update<Self.Generator.Element, Self.Index>])  {
+    func processDiff(diff: [DiffStep<Self.Generator.Element, Self.Index>]) -> [DiffStep<Self.Generator.Element, Self.Index>]  {
         var newDiff: [DiffStep<Self.Generator.Element, Self.Index>] = []
-        var updates: [Update<Self.Generator.Element, Self.Index>] = []
         for step in diff {
             guard let stepValue = step.value else {
                 continue
             }
-            var found: DiffStep<Self.Generator.Element, Self.Index>? // To keep track of the found step, to also hold the value to create an update if neccesary
-            var isUpdate = false
+            var foundIdx: Self.Index?
             for step2 in diff {
                 guard let step2Value = step2.value else {
                     continue
@@ -161,47 +165,28 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable {
                         if step2Value == stepValue{
                             // This is where we would account for a DiffSteps that are insert and delete at the same index for the same object
                             break
-                        } else {
-                            if step.isInsertion {
-                                updates.append(Update(index: step.idx, newItem: stepValue))
-                            }
-                            isUpdate = true
-                            break
                         }
                     } else {
-                        found = DiffStep.insert(atIndex: step2.idx, item: step2Value)
+                        foundIdx = step2.idx
                     }
-                    break
-                } else if step2 != step &&  step2Value != stepValue && step2Value.identifiedSame(stepValue) {
-                    if step.isInsertion {
-                        updates.append(Update(index: step.idx, newItem: stepValue))
-                    }
-                    isUpdate = true
                     break
                 }
             }
             
-            if isUpdate { continue }// If it is an update nothing else needs to be done with this step
-            
-            if let found = found, let foundValue = found.value {
+            if let foundIdx = foundIdx {
                 if step.isInsertion {
-                    if newDiff.indexOf(DiffStep.move(fromIndex: found.idx, toIndex: step.idx)) == nil {
-                        newDiff.append(DiffStep.move(fromIndex: found.idx, toIndex:step.idx))
+                    if newDiff.indexOf(DiffStep.move(fromIndex: foundIdx, toIndex: step.idx)) == nil {
+                        newDiff.append(DiffStep.move(fromIndex: foundIdx, toIndex:step.idx))
                     }
                 } else {
-                    if newDiff.indexOf(DiffStep.move(fromIndex: step.idx, toIndex: found.idx)) == nil {
-                        newDiff.append(DiffStep.move(fromIndex: step.idx, toIndex: found.idx))
-                        
-                        if stepValue != foundValue{
-                            // Accounts for a move and update
-                            updates.append(Update(index: found.idx, newItem: found.value!))
-                        }
+                    if newDiff.indexOf(DiffStep.move(fromIndex: step.idx, toIndex: foundIdx)) == nil {
+                        newDiff.append(DiffStep.move(fromIndex: step.idx, toIndex: foundIdx))
                     }
                 }
             } else {
                 newDiff.append(step)
             }
         }
-        return (newDiff, updates)
+        return newDiff
     }
 }
