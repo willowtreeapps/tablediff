@@ -56,4 +56,15 @@ class UpdateTests: XCTestCase {
         XCTAssertEqual([DiffStep<Widget, Int>.move(fromIndex: 0, toIndex: 1)], diff)
         XCTAssertEqual([Update<Widget, Int>(index: 1, newItem: a2)], updates)
     }
+    
+    func testPreUpdate() {
+        var a2 = a
+        a2.name = "Zoomatic Classic"
+        
+        let x: [Widget] = [a, b, c]
+        let y: [Widget] = [b, a2, c]
+        let (diff, updates) = x.deepDiff(y, updateStyle: .pre)
+        XCTAssertEqual([DiffStep<Widget, Int>.move(fromIndex: 0, toIndex: 1)], diff)
+        XCTAssertEqual([Update<Widget, Int>(index: 0, newItem: a2)], updates)
+    }
 }

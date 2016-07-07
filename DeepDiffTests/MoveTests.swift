@@ -35,6 +35,7 @@ class MoveTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
+    // These won't pass until we resolve the issue with same index and same value being to difficult to transfer to move
     func testMoveMultiple() {
         let x: [Int] = [1, 2, 3]
         let y: [Int] = [3, 2, 1]
@@ -64,5 +65,18 @@ class MoveTests: XCTestCase {
             }
             XCTAssertEqual([], updates)
         }
+    }
+    
+    func testComplexMove() {
+        let x: [Int] = [342, 604, 390, 870, 745]
+        let y: [Int] = [870, 604, 745, 390, 342]
+        let (diff, updates) = x.deepDiff(y)
+        let expectedDiff: [DiffStep<Int,Int>] = [
+            DiffStep.move(fromIndex: 0, toIndex: 4),
+            DiffStep.move(fromIndex: 2, toIndex: 3),
+            DiffStep.move(fromIndex: 3, toIndex: 0),
+        ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
     }
 }
