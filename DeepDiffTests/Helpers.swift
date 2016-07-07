@@ -10,8 +10,8 @@ import Foundation
 import DeepDiff
 
 extension Int: SequenceDiffable {
-    public func identifiedSame(other: Int) -> Bool {
-        return self == other
+    public var identifier: Int {
+        return self
     }
 }
 
@@ -19,10 +19,7 @@ struct Widget: SequenceDiffable {
     let id: String
     var name: String
     var price: Int
-
-    func identifiedSame(other: Widget) -> Bool {
-        return id == other.id
-    }
+    var identifier: String { return id }
 }
 
 func ==(lhs: Widget, rhs: Widget) -> Bool {
@@ -44,7 +41,9 @@ extension CollectionType {
 
 extension MutableCollectionType where Index == Int {
     mutating func shuffle() {
-        if count < 2 { return }
+        guard count > 1 else {
+            return
+        }
 
         for i in 0..<count - 1 {
             let j = Int(arc4random_uniform(UInt32(count - i))) + i

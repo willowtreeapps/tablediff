@@ -13,10 +13,7 @@ struct Emoji: SequenceDiffable {
     var id: String
     var name: String
     var image: UIImage
-    
-    func identifiedSame(other: Emoji) -> Bool {
-        return id == other.id
-    }
+    var identifier: String { return id }
 }
 
 
