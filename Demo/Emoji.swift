@@ -10,13 +10,17 @@ import UIKit
 import DeepDiff
 
 struct Emoji: SequenceDiffable {
-    var id: String
-    var name: String
-    var image: UIImage
-    var identifier: String { return id }
+    let identifier: String
+    let name: String
+    let image: UIImage
+    var color: UIColor
+
+    var hashValue: Int {
+        return identifier.hashValue
+    }
 }
 
 
 func ==(lhs: Emoji, rhs: Emoji) -> Bool {
-    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.image == rhs.image
+    return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.image == rhs.image && lhs.color == rhs.color
 }

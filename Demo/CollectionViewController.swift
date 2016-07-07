@@ -11,23 +11,23 @@ import UIKit
 let reusableIdentifier = "EmojiCellIdentifier"
 class CollectionViewController: UICollectionViewController {
     var possibleEmojis = [
-        Emoji(id: "0", name: "Tongue", image: UIImage(named: "tongue")!),
-        Emoji(id: "1", name: "Blush", image: UIImage(named: "blush")!),
-        Emoji(id: "2", name: "Content", image: UIImage(named: "content")!),
-        Emoji(id: "3", name: "Cry", image: UIImage(named: "cry")!),
-        Emoji(id: "4", name: "Sob", image: UIImage(named: "sob")!),
-        Emoji(id: "5", name: "Thinking", image: UIImage(named: "thinking")!),
-        Emoji(id: "6", name: "Cool", image: UIImage(named: "cool")!),
-        Emoji(id: "7", name: "Dog", image: UIImage(named: "dog")!),
-        Emoji(id: "8", name: "Heart", image: UIImage(named: "heart")!),
-        Emoji(id: "9", name: "Monkey", image: UIImage(named: "monkey")!),
-        Emoji(id: "10", name: "Nerd", image: UIImage(named: "nerd")!),
-        Emoji(id: "11", name: "Wink", image: UIImage(named: "wink")!),
-        Emoji(id: "12", name: "Parrot", image: UIImage.gifWithName("parrot")!),
-        Emoji(id: "13", name: "Fiesta Parrot", image: UIImage.gifWithName("fiestaparrot")!),
-        Emoji(id: "14", name: "Conga Parrot", image: UIImage.gifWithName("congaparrot")!),
-        Emoji(id: "15", name: "Parrot Cop", image: UIImage.gifWithName("parrotcop")!),
-        Emoji(id: "16", name: "Sad Parrot", image: UIImage.gifWithName("sadparrot")!),
+        Emoji(identifier: "0", name: "Tongue", image: UIImage(named: "tongue")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "1", name: "Blush", image: UIImage(named: "blush")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "2", name: "Content", image: UIImage(named: "content")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "3", name: "Cry", image: UIImage(named: "cry")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "4", name: "Sob", image: UIImage(named: "sob")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "5", name: "Thinking", image: UIImage(named: "thinking")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "6", name: "Cool", image: UIImage(named: "cool")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "7", name: "Dog", image: UIImage(named: "dog")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "8", name: "Heart", image: UIImage(named: "heart")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "9", name: "Monkey", image: UIImage(named: "monkey")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "10", name: "Nerd", image: UIImage(named: "nerd")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "11", name: "Wink", image: UIImage(named: "wink")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "12", name: "Parrot", image: UIImage.gifWithName("parrot")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "13", name: "Fiesta Parrot", image: UIImage.gifWithName("fiestaparrot")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "14", name: "Conga Parrot", image: UIImage.gifWithName("congaparrot")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "15", name: "Parrot Cop", image: UIImage.gifWithName("parrotcop")!, color: UIColor.whiteColor()),
+        Emoji(identifier: "16", name: "Sad Parrot", image: UIImage.gifWithName("sadparrot")!, color: UIColor.whiteColor()),
     ]
     var emojis: [Emoji] = []
     
@@ -45,21 +45,28 @@ class CollectionViewController: UICollectionViewController {
     
     func refresh(control: UIRefreshControl) {
         let newArray = randomize(possibleEmojis)
-        let (diff, _) = emojis.deepDiff(newArray)
+        let (diff, updates) = emojis.deepDiff(newArray)
+
+        let visibleIndices = Set((self.collectionView?.indexPathsForVisibleItems() ?? []).map { $0.item })
+        for index in updates.intersect(visibleIndices) {
+            let cell = self.collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) as? EmojiCell
+            cell?.update(self.emojis[index])
+        }
+        
         emojis = newArray
         collectionView?.performBatchUpdates({ () -> Void in
             for step in diff {
                 switch step {
                 case .move(let i, let j):
                     self.collectionView?.moveItemAtIndexPath(NSIndexPath(forItem: i, inSection: 0), toIndexPath: NSIndexPath(forItem: j, inSection: 0))
-                case .insert(let i, _):
+                case .insert(let i):
                     self.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: i, inSection: 0)])
-                case .delete(let i, _):
+                case .delete(let i):
                     self.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: i, inSection: 0)])
                 }
             }
         }, completion: {(finished) -> Void in
-                control.endRefreshing()
+            control.endRefreshing()
         })
         
     }
@@ -70,6 +77,8 @@ class CollectionViewController: UICollectionViewController {
             let j = Int(arc4random_uniform(UInt32(array.count - i))) + i
             if i != j {
                 swap(&array[i], &array[j])
+                let roll = (Double(arc4random() % 100))/100.0
+                array[i].color = roll < 0.2 ? UIColor.blueColor().colorWithAlphaComponent(0.5) : .whiteColor()
             }
         }
         let subsetCount: Int = Int(arc4random_uniform(3)) + (array.count/2)
@@ -82,7 +91,7 @@ class CollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableIdentifier, forIndexPath: indexPath) as! EmojiCell
-        cell.imageView.image = emojis[indexPath.row].image
+        cell.setup(emojis[indexPath.row])
         return cell
     }
     

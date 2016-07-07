@@ -21,17 +21,18 @@
 		C68471E31D2C38DC00F3E4B3 /* congaparrot.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E21D2C38DC00F3E4B3 /* congaparrot.gif */; };
 		C68471E51D2C38E100F3E4B3 /* parrotcop.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E41D2C38E100F3E4B3 /* parrotcop.gif */; };
 		C68471E71D2C38E700F3E4B3 /* sadparrot.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E61D2C38E700F3E4B3 /* sadparrot.gif */; };
+		D94777001D303A64005A0EB3 /* NumbersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */; };
 		D9513DBE1D21ABBD0048B47E /* DeepDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = D9513DBD1D21ABBD0048B47E /* DeepDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9513DC51D21ABBD0048B47E /* DeepDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */; };
 		D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */; };
 		D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD41D21ABDA0048B47E /* DeepDiff.swift */; };
-		D9513DD71D21B24C0048B47E /* SectionedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD61D21B24C0048B47E /* SectionedCollection.swift */; };
 		D9513DD91D21B6760048B47E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD81D21B6760048B47E /* Helpers.swift */; };
 		D9513DDB1D21BA380048B47E /* InsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDA1D21BA380048B47E /* InsertTests.swift */; };
 		D9513DDD1D21BAA30048B47E /* DeleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDC1D21BAA30048B47E /* DeleteTests.swift */; };
 		D9DB58131D22D14300B5870F /* MoveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DB58121D22D14300B5870F /* MoveTests.swift */; };
 		D9DB58191D22D4CB00B5870F /* UpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DB58181D22D4CB00B5870F /* UpdateTests.swift */; };
 		D9F181511D341CE40061A9EF /* LCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F181501D341CE40061A9EF /* LCS.swift */; };
+		D9F181531D34330D0061A9EF /* AllMoves.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F181521D34330D0061A9EF /* AllMoves.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		C68471E21D2C38DC00F3E4B3 /* congaparrot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = congaparrot.gif; sourceTree = "<group>"; };
 		C68471E41D2C38E100F3E4B3 /* parrotcop.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = parrotcop.gif; sourceTree = "<group>"; };
 		C68471E61D2C38E700F3E4B3 /* sadparrot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sadparrot.gif; sourceTree = "<group>"; };
+		D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumbersViewController.swift; sourceTree = "<group>"; };
 		D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepDiff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9513DBD1D21ABBD0048B47E /* DeepDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepDiff.h; sourceTree = "<group>"; };
 		D9513DBF1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,13 +70,13 @@
 		D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDiffTests.swift; sourceTree = "<group>"; };
 		D9513DCB1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9513DD41D21ABDA0048B47E /* DeepDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepDiff.swift; sourceTree = "<group>"; };
-		D9513DD61D21B24C0048B47E /* SectionedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionedCollection.swift; sourceTree = "<group>"; };
 		D9513DD81D21B6760048B47E /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D9513DDA1D21BA380048B47E /* InsertTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertTests.swift; sourceTree = "<group>"; };
 		D9513DDC1D21BAA30048B47E /* DeleteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTests.swift; sourceTree = "<group>"; };
 		D9DB58121D22D14300B5870F /* MoveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTests.swift; sourceTree = "<group>"; };
 		D9DB58181D22D4CB00B5870F /* UpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTests.swift; sourceTree = "<group>"; };
 		D9F181501D341CE40061A9EF /* LCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LCS.swift; sourceTree = "<group>"; };
+		D9F181521D34330D0061A9EF /* AllMoves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllMoves.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				C68471C31D2C225100F3E4B3 /* AppDelegate.swift */,
 				C68471C51D2C225100F3E4B3 /* ViewController.swift */,
 				C68471E91D2C3B1E00F3E4B3 /* Collection View Example */,
+				D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */,
 				C68471C71D2C225100F3E4B3 /* Main.storyboard */,
 				C68471E81D2C3B0B00F3E4B3 /* Gifs */,
 				C68471CA1D2C225100F3E4B3 /* Assets.xcassets */,
@@ -168,7 +171,7 @@
 				D9513DBF1D21ABBD0048B47E /* Info.plist */,
 				D9513DD41D21ABDA0048B47E /* DeepDiff.swift */,
 				D9F181501D341CE40061A9EF /* LCS.swift */,
-				D9513DD61D21B24C0048B47E /* SectionedCollection.swift */,
+				D9F181521D34330D0061A9EF /* AllMoves.swift */,
 			);
 			path = DeepDiff;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				C68471DD1D2C376200F3E4B3 /* Helpers.swift in Sources */,
 				C68471D61D2C23AB00F3E4B3 /* CollectionViewController.swift in Sources */,
 				C68471D41D2C233F00F3E4B3 /* EmojiCell.swift in Sources */,
+				D94777001D303A64005A0EB3 /* NumbersViewController.swift in Sources */,
 				C68471C61D2C225100F3E4B3 /* ViewController.swift in Sources */,
 				C68471C41D2C225100F3E4B3 /* AppDelegate.swift in Sources */,
 			);
@@ -345,7 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9513DD71D21B24C0048B47E /* SectionedCollection.swift in Sources */,
+				D9F181531D34330D0061A9EF /* AllMoves.swift in Sources */,
 				D9F181511D341CE40061A9EF /* LCS.swift in Sources */,
 				D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */,
 			);

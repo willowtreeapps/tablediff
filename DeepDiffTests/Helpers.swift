@@ -9,21 +9,24 @@
 import Foundation
 import DeepDiff
 
+let allImplementations: [DeepDiff.Implementation] = [.lcs, .lcsWithMoves, .allMoves]
+
 extension Int: SequenceDiffable {
-    public var identifier: Int {
-        return self
-    }
+    public var identifier: Int { return self }
 }
 
 struct Widget: SequenceDiffable {
-    let id: String
+    let identifier: String
     var name: String
     var price: Int
-    var identifier: String { return id }
+
+    var hashValue: Int {
+        return identifier.hashValue
+    }
 }
 
 func ==(lhs: Widget, rhs: Widget) -> Bool {
-    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.price == rhs.price
+    return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.price == rhs.price
 }
 
 func randomArray(minSize: Int = 0, maxSize: Int = 100, minValue: Int = 0, maxValue: Int = 1000) -> [Int] {
