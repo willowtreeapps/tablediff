@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C673A85F1D353527001C717D /* UIKit+Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C673A85E1D353527001C717D /* UIKit+Diff.swift */; };
 		C68471C41D2C225100F3E4B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68471C31D2C225100F3E4B3 /* AppDelegate.swift */; };
 		C68471C61D2C225100F3E4B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68471C51D2C225100F3E4B3 /* ViewController.swift */; };
 		C68471C91D2C225100F3E4B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C68471C71D2C225100F3E4B3 /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C673A85E1D353527001C717D /* UIKit+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Diff.swift"; sourceTree = "<group>"; };
 		C68471C11D2C225100F3E4B3 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68471C31D2C225100F3E4B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C68471C51D2C225100F3E4B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				D9513DD41D21ABDA0048B47E /* DeepDiff.swift */,
 				D9F181501D341CE40061A9EF /* LCS.swift */,
 				D9F181521D34330D0061A9EF /* AllMoves.swift */,
+				C673A85E1D353527001C717D /* UIKit+Diff.swift */,
 			);
 			path = DeepDiff;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9F181531D34330D0061A9EF /* AllMoves.swift in Sources */,
+				C673A85F1D353527001C717D /* UIKit+Diff.swift in Sources */,
 				D9F181511D341CE40061A9EF /* LCS.swift in Sources */,
 				D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */,
 			);

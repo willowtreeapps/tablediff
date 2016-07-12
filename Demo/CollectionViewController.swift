@@ -54,18 +54,7 @@ class CollectionViewController: UICollectionViewController {
         }
         
         emojis = newArray
-        collectionView?.performBatchUpdates({ () -> Void in
-            for step in diff {
-                switch step {
-                case .move(let i, let j):
-                    self.collectionView?.moveItemAtIndexPath(NSIndexPath(forItem: i, inSection: 0), toIndexPath: NSIndexPath(forItem: j, inSection: 0))
-                case .insert(let i):
-                    self.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: i, inSection: 0)])
-                case .delete(let i):
-                    self.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: i, inSection: 0)])
-                }
-            }
-        }, completion: {(finished) -> Void in
+        collectionView?.applyDiff(diff, completion: {(finished) -> Void in
             control.endRefreshing()
         })
         
