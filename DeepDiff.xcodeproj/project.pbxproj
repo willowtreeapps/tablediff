@@ -169,12 +169,12 @@
 		D9513DBC1D21ABBD0048B47E /* DeepDiff */ = {
 			isa = PBXGroup;
 			children = (
-				C673A85E1D353527001C717D /* UIKit+Diff.swift */,
 				D9513DBD1D21ABBD0048B47E /* DeepDiff.h */,
 				D9513DBF1D21ABBD0048B47E /* Info.plist */,
 				D9513DD41D21ABDA0048B47E /* DeepDiff.swift */,
 				D9F181501D341CE40061A9EF /* LCS.swift */,
 				D9F181521D34330D0061A9EF /* AllMoves.swift */,
+				C673A85E1D353527001C717D /* UIKit+Diff.swift */,
 			);
 			path = DeepDiff;
 			sourceTree = "<group>";
