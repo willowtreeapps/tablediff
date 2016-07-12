@@ -50,17 +50,6 @@ class NumbersViewController: UITableViewController {
         let new = numbers[index]
 
         let (diff, _) = old.deepDiff(new)
-        tableView.beginUpdates()
-        for step in diff {
-            switch step {
-            case .move(let i, let j):
-                tableView.moveRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0), toIndexPath: NSIndexPath(forItem: j, inSection: 0))
-            case .insert(let i):
-                tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: i, inSection: 0)], withRowAnimation: .Automatic)
-            case .delete(let i):
-                tableView.deleteRowsAtIndexPaths([NSIndexPath(forItem: i, inSection: 0)], withRowAnimation: .Automatic)
-            }
-        }
-        tableView.endUpdates()
+        tableView.applyDiff(diff)
     }
 }
