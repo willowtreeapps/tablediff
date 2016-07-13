@@ -29,6 +29,26 @@ func ==(lhs: Widget, rhs: Widget) -> Bool {
     return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.price == rhs.price
 }
 
+struct WidgetSection: SequenceDiffable {
+    let identifier: String
+    let name: String
+    
+    var hashValue: Int {
+        return identifier.hashValue
+    }
+}
+
+func ==(lhs: WidgetSection, rhs: WidgetSection) -> Bool {
+    return lhs.identifier == rhs.identifier && lhs.name == rhs.name
+}
+
+struct Converter: SectionedCollectionConvertible {
+    func toSectionedCollection() -> [SectionedCollectionElement<WidgetSection, Widget>] {
+        return []
+    }
+    
+}
+
 func randomArray(minSize: Int = 0, maxSize: Int = 100, minValue: Int = 0, maxValue: Int = 1000) -> [Int] {
     let count = UInt32(minSize) + arc4random_uniform(UInt32(maxSize-minSize))
     return (0..<count).map { _ in minValue + Int(arc4random_uniform(UInt32(maxValue - minValue))) }
