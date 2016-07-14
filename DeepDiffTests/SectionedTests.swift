@@ -63,7 +63,7 @@ class LCSSectionedTests: XCTestCase {
         
         let y: [SectionedCollectionElement<WidgetSection, Widget>] = [SectionedCollectionElement<WidgetSection, Widget>.section(sectionA), SectionedCollectionElement<WidgetSection, Widget>.element(a), SectionedCollectionElement<WidgetSection, Widget>.element(b), SectionedCollectionElement<WidgetSection, Widget>.element(c),]
         let converter = Converter()
-        var (diff, _) = converter.tableDiff(x, b: y, implementation: .lcs)
+        var (diff, _) = converter.tableDiff(x, b: y, implementation: .lcsWithMoves)
         diff = trimFromSectionedDiff(diff)
         XCTAssertEqual([SectionedDiffStep.deleteSection(fromIndex: 1)], diff)
     }
@@ -73,7 +73,7 @@ class LCSSectionedTests: XCTestCase {
         
         let y: [SectionedCollectionElement<WidgetSection, Widget>] = [SectionedCollectionElement<WidgetSection, Widget>.section(sectionA), SectionedCollectionElement<WidgetSection, Widget>.element(a), SectionedCollectionElement<WidgetSection, Widget>.element(b), SectionedCollectionElement<WidgetSection, Widget>.element(c), SectionedCollectionElement<WidgetSection, Widget>.section(sectionB), SectionedCollectionElement<WidgetSection, Widget>.element(d), SectionedCollectionElement<WidgetSection, Widget>.element(e), SectionedCollectionElement<WidgetSection, Widget>.element(f),]
         let converter = Converter()
-        var (diff, _) = converter.tableDiff(x, b: y, implementation: .lcs)
+        var (diff, _) = converter.tableDiff(x, b: y, implementation: .lcsWithMoves)
         diff = trimFromSectionedDiff(diff)
         XCTAssertEqual([SectionedDiffStep.insertSection(atIndex: 0)], diff)
     }
@@ -88,4 +88,17 @@ class LCSSectionedTests: XCTestCase {
         
         XCTAssertEqual([SectionedDiffStep.moveSection(fromIndex: 0, toIndex: 1)], diff)
     }
+    
+    func testCombinedBetweenSections() {
+        let x: [SectionedCollectionElement<WidgetSection, Widget>] = [SectionedCollectionElement<WidgetSection, Widget>.section(sectionA), SectionedCollectionElement<WidgetSection, Widget>.element(f), SectionedCollectionElement<WidgetSection, Widget>.element(b), SectionedCollectionElement<WidgetSection, Widget>.element(c), SectionedCollectionElement<WidgetSection, Widget>.section(sectionB), SectionedCollectionElement<WidgetSection, Widget>.element(d), SectionedCollectionElement<WidgetSection, Widget>.element(e),]
+        
+        let y: [SectionedCollectionElement<WidgetSection, Widget>] = [SectionedCollectionElement<WidgetSection, Widget>.section(sectionA), SectionedCollectionElement<WidgetSection, Widget>.element(b), SectionedCollectionElement<WidgetSection, Widget>.section(sectionB), SectionedCollectionElement<WidgetSection, Widget>.element(c), SectionedCollectionElement<WidgetSection, Widget>.element(d), SectionedCollectionElement<WidgetSection, Widget>.element(e), SectionedCollectionElement<WidgetSection, Widget>.element(a),]
+        let converter = Converter()
+        var (diff, _) = converter.tableDiff(x, b: y, implementation: .lcsWithMoves)
+        diff = trimFromSectionedDiff(diff)
+        
+        XCTAssertEqual([SectionedDiffStep.delete(fromIndex: NSIndexPath(forRow: 0, inSection: 0)), SectionedDiffStep.insert(atIndex: NSIndexPath(forRow: 1, inSection: 1)), SectionedDiffStep.move(fromIndex: NSIndexPath(forRow: 2, inSection: 0), toIndex: NSIndexPath(forRow: 0, inSection: 1))], diff)
+    }
+    
+    
 }
