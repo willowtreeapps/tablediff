@@ -58,6 +58,12 @@ public func ==(lhs: SectionedDiffStep, rhs: SectionedDiffStep) -> Bool {
         return lhsIndex == rhsIndex
     case (let .move(fromIndex: lhsFromIndex, toIndex: lhsToIndex), let .move(fromIndex: rhsFromIndex, toIndex: rhsToIndex)):
         return lhsFromIndex == rhsFromIndex && lhsToIndex == rhsToIndex
+    case (let .insertSection(lhsIndex), let .insertSection(rhsIndex)):
+        return lhsIndex == rhsIndex
+    case (let .deleteSection(lhsIndex), let .deleteSection(rhsIndex)):
+        return lhsIndex == rhsIndex
+    case (let .moveSection(fromIndex: lhsFromIndex, toIndex: lhsToIndex), let .moveSection(fromIndex: rhsFromIndex, toIndex: rhsToIndex)):
+        return lhsFromIndex == rhsFromIndex && lhsToIndex == rhsToIndex
     default:
         return false
     }
@@ -164,6 +170,65 @@ public extension SectionedCollectionConvertible {
                 return NSIndexPath(forRow: target - (sectionIndices[prevSectionIndex] + prevSectionIndex + 1), inSection: prevSectionIndex)
             }
         }
+        if sectionIndices.count == 0 {
+            return NSIndexPath(forRow: target, inSection: 0)
+        }
         return NSIndexPath(forRow: target - (sectionIndices[sectionIndices.count - 1] + sectionIndices.count - 1), inSection: prevSectionIndex)
     }
+}
+
+public func trimFromSectionedDiff(diff: Set<SectionedDiffStep>) -> Set<SectionedDiffStep> {
+    var diff = diff
+    var deletes: Set<SectionedDiffStep> = []
+    var inserts: Set<SectionedDiffStep> = []
+    var moves: Set<SectionedDiffStep> = []
+    var deleteSections: [Int] = []
+    var insertSections: [Int] = []
+    var moveSections: [(Int, Int)] = []
+    
+    for step in diff {
+        switch step {
+        case .delete(_):
+            deletes.insert(step)
+        case .insert(_):
+            inserts.insert(step)
+        case .move(_, _):
+            moves.insert(step)
+        case .deleteSection(let index):
+            deleteSections.append(index)
+        case .insertSection(let index):
+            insertSections.append(index)
+        case .moveSection(let from , let to):
+            moveSections.append((from, to))
+        }
+    }
+    
+    for section in deleteSections {
+        for delete in deletes {
+            if case .delete(let index) = delete where index.section == section {
+                diff.remove(delete)
+                deletes.remove(delete)
+            }
+        }
+    }
+    
+    for section in insertSections {
+        for insert in inserts {
+            if case .insert(let index) = insert where index.section == section {
+                diff.remove(insert)
+                inserts.remove(insert)
+            }
+        }
+    }
+    
+    for section in moveSections {
+        for move in moves {
+            if case .move(let from, let to) = move where from.row == to.row && section.0 == from.section && section.1 == to.section {
+                diff.remove(move)
+                moves.remove(move)
+            }
+        }
+    }
+    
+    return diff
 }
