@@ -33,7 +33,8 @@ extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.In
         var updates: Set<Self.Index> = []
         for (id, cache) in a_cache {
             let (item, indices) = cache
-            let moves = Array(zip(indices,b_cache[id]?.indices ?? []))
+            var b_indices = b_cache[id]?.indices ?? []
+            let moves = Array(zip(indices,b_indices))
             for (from, to) in moves {
                 if from != to {
                     diff.insert(.move(fromIndex: from, toIndex: to))
@@ -50,7 +51,12 @@ extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.In
                 diff.insert(.delete(fromIndex: indices[i]))
             }
 
-            b_cache.removeValueForKey(id)
+            b_indices.removeFirst(min(moves.count, b_indices.count))
+            if b_indices.isEmpty {
+                b_cache.removeValueForKey(id)
+            } else {
+                b_cache[id]?.indices = b_indices
+            }
         }
 
         for (id, cache) in b_cache {

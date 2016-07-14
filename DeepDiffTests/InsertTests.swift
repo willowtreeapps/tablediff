@@ -51,6 +51,17 @@ class LCSInsertTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
+    func testInsertSame() {
+        let x: [Int] = [1, 2, 3]
+        let y: [Int] = [1, 2, 3, 1]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.insert(atIndex: 3),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
 }
 
 class LCSWithMovesInsertTests: XCTestCase {
@@ -95,6 +106,17 @@ class LCSWithMovesInsertTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
+    func testInsertSame() {
+        let x: [Int] = [1, 2, 3]
+        let y: [Int] = [1, 2, 3, 1]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.insert(atIndex: 3),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
 }
 
 class AllMovesInsertTests: XCTestCase {
@@ -143,4 +165,15 @@ class AllMovesInsertTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
+    func testInsertSame() {
+        let x: [Int] = [1, 2, 3]
+        let y: [Int] = [1, 2, 3, 1]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.insert(atIndex: 3),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
 }

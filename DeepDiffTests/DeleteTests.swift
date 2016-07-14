@@ -51,6 +51,17 @@ class LCSDeleteTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
+    func testDeleteSame() {
+        let x: [Int] = [1, 2, 3, 1]
+        let y: [Int] = [1, 2, 3]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.delete(fromIndex: 3),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
 }
 
 class LCSWithMovesDeleteTests: XCTestCase {
@@ -95,6 +106,17 @@ class LCSWithMovesDeleteTests: XCTestCase {
         XCTAssertEqual([], updates)
     }
 
+    func testDeleteSame() {
+        let x: [Int] = [1, 2, 3, 1]
+        let y: [Int] = [1, 2, 3]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.delete(fromIndex: 3),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
 }
 
 class AllMovesDeleteTests: XCTestCase {
@@ -138,9 +160,46 @@ class AllMovesDeleteTests: XCTestCase {
             DiffStep.delete(fromIndex: 0),
             DiffStep.delete(fromIndex: 3),
             DiffStep.delete(fromIndex: 5),
-        ]
+            ]
         XCTAssertEqual(expectedDiff, diff)
         XCTAssertEqual([], updates)
     }
 
+    func testDeleteSame() {
+        let x: [Int] = [1, 2, 3, 1]
+        let y: [Int] = [1, 2, 3]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.delete(fromIndex: 3),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
+
+    func testDeleteSame2() {
+        let x: [Int] = [1, 2, 3, 1, 1]
+        let y: [Int] = [1, 2, 3]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.delete(fromIndex: 3),
+            DiffStep.delete(fromIndex: 4),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
+
+    func testDeleteSame3() {
+        let x: [Int] = [1, 2, 3, 1]
+        let y: [Int] = [2, 3]
+        var (diff, updates) = deepDiff(x, y)
+        diff = trimMovesFromDiff(diff)
+        let expectedDiff: Set<DiffStep<Int>> = [
+            DiffStep.delete(fromIndex: 0),
+            DiffStep.delete(fromIndex: 3),
+            ]
+        XCTAssertEqual(expectedDiff, diff)
+        XCTAssertEqual([], updates)
+    }
 }
