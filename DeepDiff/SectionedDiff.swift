@@ -125,17 +125,27 @@ public extension SectionedCollectionConvertible {
         for step in diff {
             switch step {
             case .insert(let index):
-                let newStep = SectionedDiffStep.insert(atIndex: makeIndexPath(index, sectionIndices: sections))
-                indexPathDiffs.insert(newStep)
-                break
+                if let index = sections.indexOf(index) {
+                    indexPathDiffs.insert(SectionedDiffStep.insertSection(atIndex: index))
+                } else {
+                    let newStep = SectionedDiffStep.insert(atIndex: makeIndexPath(index, sectionIndices: sections))
+                    indexPathDiffs.insert(newStep)
+                }
+                
             case .delete(let index):
-                let newStep = SectionedDiffStep.delete(fromIndex: makeIndexPath(index, sectionIndices: sections))
-                indexPathDiffs.insert(newStep)
-                break
+                if let index = sections.indexOf(index) {
+                    indexPathDiffs.insert(SectionedDiffStep.deleteSection(fromIndex: index))
+                } else {
+                    let newStep = SectionedDiffStep.delete(fromIndex: makeIndexPath(index, sectionIndices: sections))
+                    indexPathDiffs.insert(newStep)
+                }
             case .move(let from, let to):
-                let newStep = SectionedDiffStep.move(fromIndex: makeIndexPath(from, sectionIndices: sections), toIndex: makeIndexPath(to, sectionIndices: sections))
-                indexPathDiffs.insert(newStep)
-                break
+                if let from = sections.indexOf(from), let to = sections.indexOf(to) {
+                    indexPathDiffs.insert(SectionedDiffStep.moveSection(fromIndex: from, toIndex: to))
+                } else {
+                    let newStep = SectionedDiffStep.move(fromIndex: makeIndexPath(from, sectionIndices: sections), toIndex: makeIndexPath(to, sectionIndices: sections))
+                    indexPathDiffs.insert(newStep)
+                }
             }
         }
         
@@ -146,12 +156,14 @@ public extension SectionedCollectionConvertible {
     }
     
     func makeIndexPath(target: Int, sectionIndices: [Int]) -> NSIndexPath {
+        var prevSectionIndex: Int = 0
         for (index, sectionIndex) in sectionIndices.enumerate() {
-            if target < sectionIndex {
-                return NSIndexPath(forRow: target - (sectionIndices[index - 1] + index), inSection: index - 1)
+            if target > sectionIndex {
+                prevSectionIndex = index
+            } else {
+                return NSIndexPath(forRow: target - (sectionIndices[prevSectionIndex] + prevSectionIndex + 1), inSection: prevSectionIndex)
             }
         }
-        return NSIndexPath(forRow: target - (sectionIndices[sectionIndices.count - 1] + sectionIndices.count - 1), inSection: sectionIndices.count - 1)
+        return NSIndexPath(forRow: target - (sectionIndices[sectionIndices.count - 1] + sectionIndices.count - 1), inSection: prevSectionIndex)
     }
 }
-
