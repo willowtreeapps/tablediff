@@ -72,7 +72,7 @@ public func ==(lhs: SectionedDiffStep, rhs: SectionedDiffStep) -> Bool {
 public protocol SectionedCollectionConvertible {
     associatedtype Section: SequenceDiffable
     associatedtype Element: SequenceDiffable
-    func toSectionedCollection() -> [SectionedCollectionElement<Section, Element>]
+    func toSectionedCollection() -> ([SectionedCollectionElement<Section, Element>], SectionIndices: [Int])
 }
 
 public enum SectionedCollectionElement<Section: SequenceDiffable, Element: SequenceDiffable>: SequenceDiffable {
@@ -104,59 +104,61 @@ public func ==<Section, Element>(lhs: SectionedCollectionElement<Section, Elemen
 }
 
 public extension SectionedCollectionConvertible {
-    public func tableDiff(a: [SectionedCollectionElement<Section, Element>], b: [SectionedCollectionElement<Section, Element>], implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) -> (diff: Set<SectionedDiffStep>, updates: Set<NSIndexPath>)
+    public func tableDiff<Convertible: SectionedCollectionConvertible>(a: Convertible, b:Convertible, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) -> (diff: Set<SectionedDiffStep>, updates: Set<NSIndexPath>)
     {
-        var sectionIndices: [Int] = []
-        for (index, element) in a.enumerate() {
-            if case .section(_) = element {
-                sectionIndices.append(index)
-            }
-        }
+        let (x, preIndices) = a.toSectionedCollection()
+        let (y, postIndices) = b.toSectionedCollection()
         switch implementation {
         case .lcs:
-            let (diff, updates) = a.lcsTableDiff(b, processMoves: false, updateStyle: updateStyle)
-            return toIndexPaths(diff, updates: updates, sections: sectionIndices)
+            let (diff, updates) = x.lcsTableDiff(y, processMoves: false, updateStyle: updateStyle)
+            return toIndexPaths(diff, updates: updates, preSections: preIndices, postSections: postIndices)
         case .lcsWithMoves:
-            let (diff, updates) = a.lcsTableDiff(b, processMoves: true, updateStyle: updateStyle)
-            return toIndexPaths(diff, updates: updates, sections: sectionIndices)
+            let (diff, updates) = x.lcsTableDiff(y, processMoves: true, updateStyle: updateStyle)
+            return toIndexPaths(diff, updates: updates, preSections: preIndices, postSections: postIndices)
         case .allMoves:
-            let (diff, updates) = a.allMovesTableDiff(b, updateStyle: updateStyle)
-            return toIndexPaths(diff, updates: updates, sections: sectionIndices)
+            let (diff, updates) = y.allMovesTableDiff(y, updateStyle: updateStyle)
+            return toIndexPaths(diff, updates: updates, preSections: preIndices, postSections: postIndices)
         }
     }
     
-    func toIndexPaths(diff: Set<DiffStep<Int>>, updates: Set<Int>, sections: [Int]) -> (diff: Set<SectionedDiffStep>, updates: Set<NSIndexPath>) {
+    func toIndexPaths(diff: Set<DiffStep<Int>>, updates: Set<Int>, preSections: [Int], postSections: [Int], updateStyle: UpdateIndicesStyle = .pre) -> (diff: Set<SectionedDiffStep>, updates: Set<NSIndexPath>) {
         var indexPathDiffs: Set<SectionedDiffStep> = []
         var indexPathUpdates: Set<NSIndexPath> = []
         for step in diff {
             switch step {
             case .insert(let index):
-                if let index = sections.indexOf(index) {
+                if let index = postSections.indexOf(index) {
                     indexPathDiffs.insert(SectionedDiffStep.insertSection(atIndex: index))
                 } else {
-                    let newStep = SectionedDiffStep.insert(atIndex: makeIndexPath(index, sectionIndices: sections))
+                    let newStep = SectionedDiffStep.insert(atIndex: makeIndexPath(index, sectionIndices: postSections))
                     indexPathDiffs.insert(newStep)
                 }
                 
             case .delete(let index):
-                if let index = sections.indexOf(index) {
+                if let index = preSections.indexOf(index) {
                     indexPathDiffs.insert(SectionedDiffStep.deleteSection(fromIndex: index))
                 } else {
-                    let newStep = SectionedDiffStep.delete(fromIndex: makeIndexPath(index, sectionIndices: sections))
+                    let newStep = SectionedDiffStep.delete(fromIndex: makeIndexPath(index, sectionIndices: preSections))
                     indexPathDiffs.insert(newStep)
                 }
             case .move(let from, let to):
-                if let from = sections.indexOf(from), let to = sections.indexOf(to) {
+                if let from = preSections.indexOf(from), let to = preSections.indexOf(to) {
                     indexPathDiffs.insert(SectionedDiffStep.moveSection(fromIndex: from, toIndex: to))
                 } else {
-                    let newStep = SectionedDiffStep.move(fromIndex: makeIndexPath(from, sectionIndices: sections), toIndex: makeIndexPath(to, sectionIndices: sections))
+                    let newStep = SectionedDiffStep.move(fromIndex: makeIndexPath(from, sectionIndices: preSections), toIndex: makeIndexPath(to, sectionIndices: preSections))
                     indexPathDiffs.insert(newStep)
                 }
             }
         }
         
+        //need to account for updating a section
         for step in updates {
-            indexPathUpdates.insert(makeIndexPath(step, sectionIndices: sections))
+            if updateStyle == .pre {
+                indexPathUpdates.insert(makeIndexPath(step, sectionIndices: preSections))
+            } else {
+                indexPathUpdates.insert(makeIndexPath(step, sectionIndices: postSections))
+            }
+            
         }
         return (diff:indexPathDiffs, updates: indexPathUpdates)
     }

@@ -11,7 +11,7 @@ import XCTest
 import DeepDiff
 
 class SectionedTests: XCTestCase {
-    let sectionA = WidgetSection(identifier: "a", name: "The Best Section")
+    /*let sectionA = WidgetSection(identifier: "a", name: "The Best Section")
     let sectionB = WidgetSection(identifier: "b", name: "The Worst Section")
     
     let a = Widget(identifier: "a", name: "Zoomatic", price: 200)
@@ -94,11 +94,11 @@ class LCSSectionedTests: XCTestCase {
         
         let y: [SectionedCollectionElement<WidgetSection, Widget>] = [SectionedCollectionElement<WidgetSection, Widget>.section(sectionA), SectionedCollectionElement<WidgetSection, Widget>.element(b), SectionedCollectionElement<WidgetSection, Widget>.section(sectionB), SectionedCollectionElement<WidgetSection, Widget>.element(c), SectionedCollectionElement<WidgetSection, Widget>.element(d), SectionedCollectionElement<WidgetSection, Widget>.element(e), SectionedCollectionElement<WidgetSection, Widget>.element(a),]
         let converter = Converter()
-        var (diff, _) = converter.tableDiff(x, b: y, implementation: .lcsWithMoves)
+        var (diff, _) = converter.tableDiff(x, b: y, implementation: .de)
         diff = trimFromSectionedDiff(diff)
         
         XCTAssertEqual([SectionedDiffStep.delete(fromIndex: NSIndexPath(forRow: 0, inSection: 0)), SectionedDiffStep.insert(atIndex: NSIndexPath(forRow: 1, inSection: 1)), SectionedDiffStep.move(fromIndex: NSIndexPath(forRow: 2, inSection: 0), toIndex: NSIndexPath(forRow: 0, inSection: 1))], diff)
-    }
+    }*/
     
     
 }

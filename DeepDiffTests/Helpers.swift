@@ -42,12 +42,12 @@ func ==(lhs: WidgetSection, rhs: WidgetSection) -> Bool {
     return lhs.identifier == rhs.identifier && lhs.name == rhs.name
 }
 
-struct Converter: SectionedCollectionConvertible {
+/*struct Converter: SectionedCollectionConvertible {
     func toSectionedCollection() -> [SectionedCollectionElement<WidgetSection, Widget>] {
         return []
     }
     
-}
+}*/
 
 func randomArray(minSize: Int = 0, maxSize: Int = 100, minValue: Int = 0, maxValue: Int = 1000) -> [Int] {
     let count = UInt32(minSize) + arc4random_uniform(UInt32(maxSize-minSize))
