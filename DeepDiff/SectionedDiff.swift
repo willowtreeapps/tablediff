@@ -34,11 +34,11 @@ public enum SectionedDiffStep: Hashable, CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case insert(let index):
-            return "Insert \(index)"
+            return "Insert row \(index.row) section \(index.section)"
         case delete(let index):
-            return "Delete \(index)"
+            return "Delete row \(index.row) section \(index.section)"
         case move(let from, let to):
-            return "Move \(from) -> \(to)"
+            return "Move row \(from.row) section \(from.section) -> row \(to.row) section \(to.section)"
         case insertSection(let index):
             return "Insert section \(index)"
         case deleteSection(let index):
