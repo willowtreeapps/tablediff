@@ -24,6 +24,7 @@
 		C68471E31D2C38DC00F3E4B3 /* congaparrot.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E21D2C38DC00F3E4B3 /* congaparrot.gif */; };
 		C68471E51D2C38E100F3E4B3 /* parrotcop.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E41D2C38E100F3E4B3 /* parrotcop.gif */; };
 		C68471E71D2C38E700F3E4B3 /* sadparrot.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E61D2C38E700F3E4B3 /* sadparrot.gif */; };
+		C6B4C3CA1D4FBC08004FD02F /* SectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B4C3C91D4FBC08004FD02F /* SectionsTableViewController.swift */; };
 		D94777001D303A64005A0EB3 /* NumbersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */; };
 		D9513DBE1D21ABBD0048B47E /* DeepDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = D9513DBD1D21ABBD0048B47E /* DeepDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9513DC51D21ABBD0048B47E /* DeepDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */; };
@@ -68,6 +69,7 @@
 		C68471E21D2C38DC00F3E4B3 /* congaparrot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = congaparrot.gif; sourceTree = "<group>"; };
 		C68471E41D2C38E100F3E4B3 /* parrotcop.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = parrotcop.gif; sourceTree = "<group>"; };
 		C68471E61D2C38E700F3E4B3 /* sadparrot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sadparrot.gif; sourceTree = "<group>"; };
+		C6B4C3C91D4FBC08004FD02F /* SectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionsTableViewController.swift; sourceTree = "<group>"; };
 		D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumbersViewController.swift; sourceTree = "<group>"; };
 		D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepDiff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9513DBD1D21ABBD0048B47E /* DeepDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepDiff.h; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				C68471C51D2C225100F3E4B3 /* ViewController.swift */,
 				C68471E91D2C3B1E00F3E4B3 /* Collection View Example */,
 				D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */,
+				C6B4C3C91D4FBC08004FD02F /* SectionsTableViewController.swift */,
 				C68471C71D2C225100F3E4B3 /* Main.storyboard */,
 				C68471E81D2C3B0B00F3E4B3 /* Gifs */,
 				C68471CA1D2C225100F3E4B3 /* Assets.xcassets */,
@@ -345,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C68471D81D2C252400F3E4B3 /* Emoji.swift in Sources */,
+				C6B4C3CA1D4FBC08004FD02F /* SectionsTableViewController.swift in Sources */,
 				C68471DD1D2C376200F3E4B3 /* Helpers.swift in Sources */,
 				C68471D61D2C23AB00F3E4B3 /* CollectionViewController.swift in Sources */,
 				C68471D41D2C233F00F3E4B3 /* EmojiCell.swift in Sources */,

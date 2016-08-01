@@ -32,11 +32,20 @@
                                     <segue destination="D5p-2O-gkn" kind="show" id="qwV-w0-Xmu"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwo-LT-tTQ">
+                                <rect key="frame" x="270" y="361" width="60" height="30"/>
+                                <state key="normal" title="Sections"/>
+                                <connections>
+                                    <segue destination="I3M-F1-WHV" kind="show" id="yg7-vF-0zV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="dwo-LT-tTQ" firstAttribute="top" secondItem="Zm9-ZB-gbG" secondAttribute="bottom" constant="8" id="0dg-KW-KMj"/>
                             <constraint firstItem="at0-Dw-QxZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="C3h-PS-epz"/>
                             <constraint firstItem="Zm9-ZB-gbG" firstAttribute="centerX" secondItem="at0-Dw-QxZ" secondAttribute="centerX" id="aZV-2a-dvl"/>
+                            <constraint firstItem="dwo-LT-tTQ" firstAttribute="centerX" secondItem="Zm9-ZB-gbG" secondAttribute="centerX" id="bTa-sX-vnn"/>
                             <constraint firstItem="at0-Dw-QxZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dio-Kv-wVu"/>
                             <constraint firstItem="Zm9-ZB-gbG" firstAttribute="top" secondItem="at0-Dw-QxZ" secondAttribute="bottom" constant="8" id="o79-Vh-gkj"/>
                         </constraints>
@@ -109,11 +118,11 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ikc-Sw-28r" id="ROh-ZE-geL">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fgG-EU-gmI">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -139,6 +148,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jRh-Vx-ZOp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1204" y="1102"/>
+        </scene>
+        <!--Sections Table View Controller-->
+        <scene sceneID="uie-zu-zk3">
+            <objects>
+                <tableViewController id="I3M-F1-WHV" customClass="SectionsTableViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nzn-OT-REt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ElementsCell" id="r65-wT-7qL">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r65-wT-7qL" id="7EM-WE-u5b">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="I3M-F1-WHV" id="F7h-Gk-PIc"/>
+                            <outlet property="delegate" destination="I3M-F1-WHV" id="J04-Ov-LiQ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="8ea-SF-MK4">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="pOP-gP-YAR">
+                            <connections>
+                                <action selector="nextPressed:" destination="I3M-F1-WHV" id="Gnx-mp-Aac"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jWf-CK-EMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1901" y="1102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TUl-BT-U2G">
