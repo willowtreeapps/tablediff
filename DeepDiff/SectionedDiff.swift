@@ -104,7 +104,7 @@ public func ==<Section, Element>(lhs: SectionedCollectionElement<Section, Elemen
 }
 
 public extension SectionedCollectionConvertible {
-    public func tableDiff<Convertible: SectionedCollectionConvertible>(a: Convertible, b:Convertible, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) -> (diff: Set<SectionedDiffStep>, updates: Set<NSIndexPath>)
+    public func tableDiff<Convertible: SectionedCollectionConvertible>(a: Convertible, _ b:Convertible, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) -> (diff: Set<SectionedDiffStep>, updates: Set<NSIndexPath>)
     {
         let (x, preIndices) = a.toSectionedCollection()
         let (y, postIndices) = b.toSectionedCollection()
@@ -116,7 +116,7 @@ public extension SectionedCollectionConvertible {
             let (diff, updates) = x.lcsTableDiff(y, processMoves: true, updateStyle: updateStyle)
             return toIndexPaths(diff, updates: updates, preSections: preIndices, postSections: postIndices)
         case .allMoves:
-            let (diff, updates) = y.allMovesTableDiff(y, updateStyle: updateStyle)
+            let (diff, updates) = x.allMovesTableDiff(y, updateStyle: updateStyle)
             return toIndexPaths(diff, updates: updates, preSections: preIndices, postSections: postIndices)
         }
     }
