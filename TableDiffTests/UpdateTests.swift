@@ -1,13 +1,13 @@
 //
 //  UpdateTests.swift
-//  DeepDiff
+//  TableDiff
 //
 //  Created by Ian Terrell on 6/28/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
 //
 
 import XCTest
-import DeepDiff
+import TableDiff
 
 class UpdateTests: XCTestCase {
     let a = Widget(identifier: "a", name: "Zoomatic", price: 200)
@@ -21,7 +21,7 @@ class UpdateTests: XCTestCase {
         let x: [Widget] = [a, b, c]
         let y: [Widget] = [a2, b, c]
         for impl in allImplementations {
-            let (_, updates) = x.deepDiff(y, implementation: impl)
+            let (_, updates) = x.tableDiff(y, implementation: impl)
             XCTAssertEqual(Set<Int>([0]), updates)
         }
     }
@@ -38,7 +38,7 @@ class UpdateTests: XCTestCase {
         let y: [Widget] = [a2, b, c2]
 
         for impl in allImplementations {
-            let (_, updates) = x.deepDiff(y, implementation: impl)
+            let (_, updates) = x.tableDiff(y, implementation: impl)
             XCTAssertEqual([0, 2], updates)
         }
     }
@@ -51,7 +51,7 @@ class UpdateTests: XCTestCase {
         let y: [Widget] = [b, a2, c]
 
         for impl in allImplementations {
-            let (_, updates) = x.deepDiff(y, implementation: impl, updateStyle: .pre)
+            let (_, updates) = x.tableDiff(y, implementation: impl, updateStyle: .pre)
             XCTAssertEqual([0], updates)
         }
     }
@@ -63,7 +63,7 @@ class UpdateTests: XCTestCase {
         let x: [Widget] = [a, b, c]
         let y: [Widget] = [b, a2, c]
         for impl in allImplementations {
-            let (_, updates) = x.deepDiff(y, implementation: impl, updateStyle: .post)
+            let (_, updates) = x.tableDiff(y, implementation: impl, updateStyle: .post)
             XCTAssertEqual([1], updates)
         }
     }
@@ -75,8 +75,8 @@ class UpdateTests: XCTestCase {
         let x: [Widget] = [a, b, c]
         let y: [Widget] = [b, a2, c]
         for impl in allImplementations {
-            let (_, expectedPre) = x.deepDiff(y, implementation: impl, updateStyle: .pre)
-            let (_, updates) = x.deepDiff(y, implementation: impl)
+            let (_, expectedPre) = x.tableDiff(y, implementation: impl, updateStyle: .pre)
+            let (_, updates) = x.tableDiff(y, implementation: impl)
             XCTAssertEqual(expectedPre, updates)
         }
     }

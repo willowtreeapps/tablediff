@@ -1,23 +1,23 @@
 //
 //  DeleteTests.swift
-//  DeepDiff
+//  TableDiff
 //
 //  Created by Ian Terrell on 6/27/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
 //
 
 import XCTest
-import DeepDiff
+import TableDiff
 
 class LCSDeleteTests: XCTestCase {
-    func deepDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
-        return x.deepDiff(y, implementation: .lcs)
+    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+        return x.tableDiff(y, implementation: .lcs)
     }
 
     func testDeleteHead() {
         let x: [Int] = [0, 1, 2, 3]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.delete(fromIndex: 0)], diff)
         XCTAssertEqual([], updates)
     }
@@ -25,7 +25,7 @@ class LCSDeleteTests: XCTestCase {
     func testDeleteTail() {
         let x: [Int] = [1, 2, 3, 0]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.delete(fromIndex: 3)], diff)
         XCTAssertEqual([], updates)
     }
@@ -33,7 +33,7 @@ class LCSDeleteTests: XCTestCase {
     func testDeleteMiddle() {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.delete(fromIndex: 2)], diff)
         XCTAssertEqual([], updates)
     }
@@ -41,7 +41,7 @@ class LCSDeleteTests: XCTestCase {
     func testDeleteMultiple() {
         let x: [Int] = [4, 1, 2, 5, 3, 6]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 0),
             DiffStep.delete(fromIndex: 3),
@@ -54,7 +54,7 @@ class LCSDeleteTests: XCTestCase {
     func testDeleteSame() {
         let x: [Int] = [1, 2, 3, 1]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 3),
@@ -65,14 +65,14 @@ class LCSDeleteTests: XCTestCase {
 }
 
 class LCSWithMovesDeleteTests: XCTestCase {
-    func deepDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
-        return x.deepDiff(y, implementation: .lcsWithMoves)
+    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+        return x.tableDiff(y, implementation: .lcsWithMoves)
     }
 
     func testDeleteHead() {
         let x: [Int] = [0, 1, 2, 3]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.delete(fromIndex: 0)], diff)
         XCTAssertEqual([], updates)
     }
@@ -80,7 +80,7 @@ class LCSWithMovesDeleteTests: XCTestCase {
     func testDeleteTail() {
         let x: [Int] = [1, 2, 3, 0]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.delete(fromIndex: 3)], diff)
         XCTAssertEqual([], updates)
     }
@@ -88,7 +88,7 @@ class LCSWithMovesDeleteTests: XCTestCase {
     func testDeleteMiddle() {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.delete(fromIndex: 2)], diff)
         XCTAssertEqual([], updates)
     }
@@ -96,7 +96,7 @@ class LCSWithMovesDeleteTests: XCTestCase {
     func testDeleteMultiple() {
         let x: [Int] = [4, 1, 2, 5, 3, 6]
         let y: [Int] = [1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 3),
             DiffStep.delete(fromIndex: 0),
@@ -109,7 +109,7 @@ class LCSWithMovesDeleteTests: XCTestCase {
     func testDeleteSame() {
         let x: [Int] = [1, 2, 3, 1]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 3),
@@ -120,14 +120,14 @@ class LCSWithMovesDeleteTests: XCTestCase {
 }
 
 class AllMovesDeleteTests: XCTestCase {
-    func deepDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
-        return x.deepDiff(y, implementation: .allMoves)
+    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+        return x.tableDiff(y, implementation: .allMoves)
     }
 
     func testDeleteHead() {
         let x: [Int] = [0, 1, 2, 3]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         XCTAssertEqual([DiffStep.delete(fromIndex: 0)], diff)
         XCTAssertEqual([], updates)
@@ -136,7 +136,7 @@ class AllMovesDeleteTests: XCTestCase {
     func testDeleteTail() {
         let x: [Int] = [1, 2, 3, 0]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         XCTAssertEqual([DiffStep.delete(fromIndex: 3)], diff)
         XCTAssertEqual([], updates)
@@ -145,7 +145,7 @@ class AllMovesDeleteTests: XCTestCase {
     func testDeleteMiddle() {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         XCTAssertEqual([DiffStep.delete(fromIndex: 2)], diff)
         XCTAssertEqual([], updates)
@@ -154,7 +154,7 @@ class AllMovesDeleteTests: XCTestCase {
     func testDeleteMultiple() {
         let x: [Int] = [4, 1, 2, 5, 3, 6]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 0),
@@ -168,7 +168,7 @@ class AllMovesDeleteTests: XCTestCase {
     func testDeleteSame() {
         let x: [Int] = [1, 2, 3, 1]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 3),
@@ -180,7 +180,7 @@ class AllMovesDeleteTests: XCTestCase {
     func testDeleteSame2() {
         let x: [Int] = [1, 2, 3, 1, 1]
         let y: [Int] = [1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 3),
@@ -193,7 +193,7 @@ class AllMovesDeleteTests: XCTestCase {
     func testDeleteSame3() {
         let x: [Int] = [1, 2, 3, 1]
         let y: [Int] = [2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 0),

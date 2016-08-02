@@ -1,13 +1,13 @@
 //
 //  NumbersViewController.swift
-//  DeepDiff
+//  TableDiff
 //
 //  Created by Ian Terrell on 7/8/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
 //
 
 import UIKit
-import DeepDiff
+import TableDiff
 
 extension Int: SequenceDiffable {
     public var identifier: Int { return self }
@@ -49,7 +49,7 @@ class NumbersViewController: UITableViewController {
         index += 1
         let new = numbers[index]
 
-        let (diff, _) = old.deepDiff(new)
+        let (diff, _) = old.tableDiff(new)
         tableView.applyDiff(diff)
     }
 }

@@ -1,15 +1,15 @@
 //
 //  Helpers.swift
-//  DeepDiff
+//  TableDiff
 //
 //  Created by Ian Terrell on 6/27/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
 //
 
 import Foundation
-import DeepDiff
+import TableDiff
 
-let allImplementations: [DeepDiff.Implementation] = [.lcs, .lcsWithMoves, .allMoves]
+let allImplementations: [TableDiff.Implementation] = [.lcs, .lcsWithMoves, .allMoves]
 
 extension Int: SequenceDiffable {
     public var identifier: Int { return self }
