@@ -47,7 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C673A85E1D353527001C717D /* UIKit+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Diff.swift"; sourceTree = "<group>"; };
+		C673A85E1D353527001C717D /* UIKit+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Diff.swift"; path = "/Users/kentwhite/Documents/Git/DeepDiff/TableDiff/UIKit+Diff.swift"; sourceTree = "<absolute>"; };
 		C68471C11D2C225100F3E4B3 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68471C31D2C225100F3E4B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C68471C51D2C225100F3E4B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,8 +77,8 @@
 		D9513DDC1D21BAA30048B47E /* DeleteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTests.swift; sourceTree = "<group>"; };
 		D9DB58121D22D14300B5870F /* MoveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTests.swift; sourceTree = "<group>"; };
 		D9DB58181D22D4CB00B5870F /* UpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTests.swift; sourceTree = "<group>"; };
-		D9F181501D341CE40061A9EF /* LCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LCS.swift; sourceTree = "<group>"; };
-		D9F181521D34330D0061A9EF /* AllMoves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllMoves.swift; sourceTree = "<group>"; };
+		D9F181501D341CE40061A9EF /* LCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LCS.swift; path = /Users/kentwhite/Documents/Git/DeepDiff/TableDiff/LCS.swift; sourceTree = "<absolute>"; };
+		D9F181521D34330D0061A9EF /* AllMoves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllMoves.swift; path = /Users/kentwhite/Documents/Git/DeepDiff/TableDiff/AllMoves.swift; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
