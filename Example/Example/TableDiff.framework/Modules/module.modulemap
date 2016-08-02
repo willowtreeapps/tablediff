@@ -1,0 +1,10 @@
+framework module TableDiff {
+  umbrella header "TableDiff.h"
+
+  export *
+  module * { export * }
+}
+
+module TableDiff.Swift {
+    header "TableDiff-Swift.h"
+}
