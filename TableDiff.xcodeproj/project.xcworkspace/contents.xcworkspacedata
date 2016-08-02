@@ -2,6 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
+<<<<<<< 9a02ba6720eb1fac74a4bab1c73a4acdbad404d1:TableDiff.xcodeproj/project.xcworkspace/contents.xcworkspacedata
       location = "self:">
+=======
+      location = "self:/Users/kentwhite/Documents/Git/DeepDiff/TableDiff.xcodeproj">
+>>>>>>> Rename project, files, and methods:TableDiff.xcodeproj/project.xcworkspace/contents.xcworkspacedata
    </FileRef>
 </Workspace>
