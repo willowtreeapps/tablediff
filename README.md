@@ -1,6 +1,6 @@
 # TableDiff
-* Update a `UITableView` or `UICollectionView` with a new datasource efficiently and visually appealing.
-* Replaces a common practice of using `UITableView.reloadData()` with a solution that looks nice and shows the user what is happening. Calculate's the diff between the new and original datasource to find the appropriate updates that need to be made.
+* Update a `UITableView` or `UICollectionView` with a new state.
+* Replaces a common practice of using `UITableView.reloadData()` with a solution that looks nice and displays changes to the user. Calculate's the diff between the new and original datasource to find the appropriate updates that need to be made.
 * WillowTree, collaboration of [Ian Terrell](https://github.com/ianterrell) and [Kent White](https://github.com/Kent-White)
 
 ### Table of Contents
@@ -14,7 +14,7 @@
 
 ## Getting Started<a name="getting-started"></a>
 
-Intially you will want to make the elements in your datasource to conforn to the protocol `SequenceDiffable`
+Intially you will want to make the elements in your datasource to conform to the protocol `SequenceDiffable`
 This means you need to 
 * Conform to `Equatable`
 * Have a `identifier` variable that is `Hashable`
@@ -41,7 +41,7 @@ Have a bug or a feature request? Please first read the [issue guidelines](https:
 ## Contributing<a name="contributing"></a>
 Please read through our [contributing guidelines](https://github.com/willowtreeapps/DeepDiff/blob/develop/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
 
-## Goals and Non-Goals<a name="goals"></a>
+## Goals<a name="goals"></a>
 * Calculate diff between 2 `CollectionTypes` :+1:
 * Translate diff into moves/inserts/deletes/updates :+1:
 * Adapt Algorithm to be used with sections
