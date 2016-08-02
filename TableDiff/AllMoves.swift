@@ -1,6 +1,6 @@
 //
 //  AllMoves.swift
-//  DeepDiff
+//  TableDiff
 //
 //  Created by Ian Terrell on 7/11/16.
 //  Copyright © 2016 WillowTree. All rights reserved.

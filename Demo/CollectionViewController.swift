@@ -1,6 +1,6 @@
 //
 //  CollectionViewController.swift
-//  DeepDiff
+//  TableDiff
 //
 //  Created by Kent White on 7/5/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
@@ -45,7 +45,7 @@ class CollectionViewController: UICollectionViewController {
     
     func refresh(control: UIRefreshControl) {
         let newArray = randomize(possibleEmojis)
-        let (diff, updates) = emojis.deepDiff(newArray)
+        let (diff, updates) = emojis.tableDiff(newArray)
 
         let visibleIndices = Set((self.collectionView?.indexPathsForVisibleItems() ?? []).map { $0.item })
         for index in updates.intersect(visibleIndices) {

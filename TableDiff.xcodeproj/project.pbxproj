@@ -23,10 +23,10 @@
 		C68471E51D2C38E100F3E4B3 /* parrotcop.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E41D2C38E100F3E4B3 /* parrotcop.gif */; };
 		C68471E71D2C38E700F3E4B3 /* sadparrot.gif in Resources */ = {isa = PBXBuildFile; fileRef = C68471E61D2C38E700F3E4B3 /* sadparrot.gif */; };
 		D94777001D303A64005A0EB3 /* NumbersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */; };
-		D9513DBE1D21ABBD0048B47E /* DeepDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = D9513DBD1D21ABBD0048B47E /* DeepDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9513DC51D21ABBD0048B47E /* DeepDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */; };
+		D9513DBE1D21ABBD0048B47E /* TableDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = D9513DBD1D21ABBD0048B47E /* TableDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9513DC51D21ABBD0048B47E /* TableDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9513DBA1D21ABBD0048B47E /* TableDiff.framework */; };
 		D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */; };
-		D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD41D21ABDA0048B47E /* DeepDiff.swift */; };
+		D9513DD51D21ABDA0048B47E /* TableDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD41D21ABDA0048B47E /* TableDiff.swift */; };
 		D9513DD91D21B6760048B47E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD81D21B6760048B47E /* Helpers.swift */; };
 		D9513DDB1D21BA380048B47E /* InsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDA1D21BA380048B47E /* InsertTests.swift */; };
 		D9513DDD1D21BAA30048B47E /* DeleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDC1D21BAA30048B47E /* DeleteTests.swift */; };
@@ -47,7 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C673A85E1D353527001C717D /* UIKit+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Diff.swift"; sourceTree = "<group>"; };
+		C673A85E1D353527001C717D /* UIKit+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Diff.swift"; path = "/Users/kentwhite/Documents/Git/DeepDiff/TableDiff/UIKit+Diff.swift"; sourceTree = "<absolute>"; };
 		C68471C11D2C225100F3E4B3 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68471C31D2C225100F3E4B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C68471C51D2C225100F3E4B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,20 +65,20 @@
 		C68471E41D2C38E100F3E4B3 /* parrotcop.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = parrotcop.gif; sourceTree = "<group>"; };
 		C68471E61D2C38E700F3E4B3 /* sadparrot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sadparrot.gif; sourceTree = "<group>"; };
 		D94776FF1D303A64005A0EB3 /* NumbersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumbersViewController.swift; sourceTree = "<group>"; };
-		D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeepDiff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9513DBD1D21ABBD0048B47E /* DeepDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepDiff.h; sourceTree = "<group>"; };
-		D9513DBF1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9513DC41D21ABBD0048B47E /* DeepDiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeepDiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9513DBA1D21ABBD0048B47E /* TableDiff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TableDiff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9513DBD1D21ABBD0048B47E /* TableDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TableDiff.h; path = TableDiff/TableDiff.h; sourceTree = SOURCE_ROOT; };
+		D9513DBF1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/kentwhite/Documents/Git/DeepDiff/TableDiff/Info.plist; sourceTree = "<absolute>"; };
+		D9513DC41D21ABBD0048B47E /* TableDiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableDiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDiffTests.swift; sourceTree = "<group>"; };
 		D9513DCB1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9513DD41D21ABDA0048B47E /* DeepDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepDiff.swift; sourceTree = "<group>"; };
+		D9513DD41D21ABDA0048B47E /* TableDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableDiff.swift; path = /Users/kentwhite/Documents/Git/DeepDiff/TableDiff/TableDiff.swift; sourceTree = "<absolute>"; };
 		D9513DD81D21B6760048B47E /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D9513DDA1D21BA380048B47E /* InsertTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertTests.swift; sourceTree = "<group>"; };
 		D9513DDC1D21BAA30048B47E /* DeleteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTests.swift; sourceTree = "<group>"; };
 		D9DB58121D22D14300B5870F /* MoveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTests.swift; sourceTree = "<group>"; };
 		D9DB58181D22D4CB00B5870F /* UpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTests.swift; sourceTree = "<group>"; };
-		D9F181501D341CE40061A9EF /* LCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LCS.swift; sourceTree = "<group>"; };
-		D9F181521D34330D0061A9EF /* AllMoves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllMoves.swift; sourceTree = "<group>"; };
+		D9F181501D341CE40061A9EF /* LCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LCS.swift; path = /Users/kentwhite/Documents/Git/DeepDiff/TableDiff/LCS.swift; sourceTree = "<absolute>"; };
+		D9F181521D34330D0061A9EF /* AllMoves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllMoves.swift; path = /Users/kentwhite/Documents/Git/DeepDiff/TableDiff/AllMoves.swift; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9513DC51D21ABBD0048B47E /* DeepDiff.framework in Frameworks */,
+				D9513DC51D21ABBD0048B47E /* TableDiff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,8 +149,8 @@
 		D9513DB01D21ABBD0048B47E = {
 			isa = PBXGroup;
 			children = (
-				D9513DBC1D21ABBD0048B47E /* DeepDiff */,
-				D9513DC81D21ABBD0048B47E /* DeepDiffTests */,
+				D9513DBC1D21ABBD0048B47E /* TableDiff */,
+				D9513DC81D21ABBD0048B47E /* TableDiffTests */,
 				C68471C21D2C225100F3E4B3 /* Demo */,
 				D9513DBB1D21ABBD0048B47E /* Products */,
 			);
@@ -159,27 +159,28 @@
 		D9513DBB1D21ABBD0048B47E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */,
-				D9513DC41D21ABBD0048B47E /* DeepDiffTests.xctest */,
+				D9513DBA1D21ABBD0048B47E /* TableDiff.framework */,
+				D9513DC41D21ABBD0048B47E /* TableDiffTests.xctest */,
 				C68471C11D2C225100F3E4B3 /* Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D9513DBC1D21ABBD0048B47E /* DeepDiff */ = {
+		D9513DBC1D21ABBD0048B47E /* TableDiff */ = {
 			isa = PBXGroup;
 			children = (
-				D9513DBD1D21ABBD0048B47E /* DeepDiff.h */,
+				D9513DBD1D21ABBD0048B47E /* TableDiff.h */,
 				D9513DBF1D21ABBD0048B47E /* Info.plist */,
-				D9513DD41D21ABDA0048B47E /* DeepDiff.swift */,
+				D9513DD41D21ABDA0048B47E /* TableDiff.swift */,
 				D9F181501D341CE40061A9EF /* LCS.swift */,
 				D9F181521D34330D0061A9EF /* AllMoves.swift */,
 				C673A85E1D353527001C717D /* UIKit+Diff.swift */,
 			);
+			name = TableDiff;
 			path = DeepDiff;
 			sourceTree = "<group>";
 		};
-		D9513DC81D21ABBD0048B47E /* DeepDiffTests */ = {
+		D9513DC81D21ABBD0048B47E /* TableDiffTests */ = {
 			isa = PBXGroup;
 			children = (
 				D9513DD81D21B6760048B47E /* Helpers.swift */,
@@ -190,7 +191,7 @@
 				D9DB58181D22D4CB00B5870F /* UpdateTests.swift */,
 				D9513DCB1D21ABBD0048B47E /* Info.plist */,
 			);
-			path = DeepDiffTests;
+			path = TableDiffTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +201,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9513DBE1D21ABBD0048B47E /* DeepDiff.h in Headers */,
+				D9513DBE1D21ABBD0048B47E /* TableDiff.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,9 +225,9 @@
 			productReference = C68471C11D2C225100F3E4B3 /* Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D9513DB91D21ABBD0048B47E /* DeepDiff */ = {
+		D9513DB91D21ABBD0048B47E /* TableDiff */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9513DCE1D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "DeepDiff" */;
+			buildConfigurationList = D9513DCE1D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "TableDiff" */;
 			buildPhases = (
 				D9513DB51D21ABBD0048B47E /* Sources */,
 				D9513DB61D21ABBD0048B47E /* Frameworks */,
@@ -237,14 +238,14 @@
 			);
 			dependencies = (
 			);
-			name = DeepDiff;
+			name = TableDiff;
 			productName = DeepDiff;
-			productReference = D9513DBA1D21ABBD0048B47E /* DeepDiff.framework */;
+			productReference = D9513DBA1D21ABBD0048B47E /* TableDiff.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D9513DC31D21ABBD0048B47E /* DeepDiffTests */ = {
+		D9513DC31D21ABBD0048B47E /* TableDiffTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9513DD11D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "DeepDiffTests" */;
+			buildConfigurationList = D9513DD11D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "TableDiffTests" */;
 			buildPhases = (
 				D9513DC01D21ABBD0048B47E /* Sources */,
 				D9513DC11D21ABBD0048B47E /* Frameworks */,
@@ -255,9 +256,9 @@
 			dependencies = (
 				D9513DC71D21ABBD0048B47E /* PBXTargetDependency */,
 			);
-			name = DeepDiffTests;
+			name = TableDiffTests;
 			productName = DeepDiffTests;
-			productReference = D9513DC41D21ABBD0048B47E /* DeepDiffTests.xctest */;
+			productReference = D9513DC41D21ABBD0048B47E /* TableDiffTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -281,7 +282,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D9513DB41D21ABBD0048B47E /* Build configuration list for PBXProject "DeepDiff" */;
+			buildConfigurationList = D9513DB41D21ABBD0048B47E /* Build configuration list for PBXProject "TableDiff" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -294,8 +295,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D9513DB91D21ABBD0048B47E /* DeepDiff */,
-				D9513DC31D21ABBD0048B47E /* DeepDiffTests */,
+				D9513DB91D21ABBD0048B47E /* TableDiff */,
+				D9513DC31D21ABBD0048B47E /* TableDiffTests */,
 				C68471C01D2C225100F3E4B3 /* Demo */,
 			);
 		};
@@ -355,7 +356,7 @@
 				D9F181531D34330D0061A9EF /* AllMoves.swift in Sources */,
 				C673A85F1D353527001C717D /* UIKit+Diff.swift in Sources */,
 				D9F181511D341CE40061A9EF /* LCS.swift in Sources */,
-				D9513DD51D21ABDA0048B47E /* DeepDiff.swift in Sources */,
+				D9513DD51D21ABDA0048B47E /* TableDiff.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,7 +378,7 @@
 /* Begin PBXTargetDependency section */
 		D9513DC71D21ABBD0048B47E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D9513DB91D21ABBD0048B47E /* DeepDiff */;
+			target = D9513DB91D21ABBD0048B47E /* TableDiff */;
 			targetProxy = D9513DC61D21ABBD0048B47E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -523,11 +524,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = DeepDiff/Info.plist;
+				INFOPLIST_FILE = TableDiff/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.DeepDiff;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.TableDiff;
+				PRODUCT_NAME = TableDiff;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -541,11 +542,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = DeepDiff/Info.plist;
+				INFOPLIST_FILE = TableDiff/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.DeepDiff;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.TableDiff;
+				PRODUCT_NAME = TableDiff;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -553,20 +554,20 @@
 		D9513DD21D21ABBD0048B47E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = DeepDiffTests/Info.plist;
+				INFOPLIST_FILE = TableDiffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.DeepDiffTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.TableDiffTests;
+				PRODUCT_NAME = TableDiffTests;
 			};
 			name = Debug;
 		};
 		D9513DD31D21ABBD0048B47E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = DeepDiffTests/Info.plist;
+				INFOPLIST_FILE = TableDiffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.DeepDiffTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.TableDiffTests;
+				PRODUCT_NAME = TableDiffTests;
 			};
 			name = Release;
 		};
@@ -582,7 +583,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9513DB41D21ABBD0048B47E /* Build configuration list for PBXProject "DeepDiff" */ = {
+		D9513DB41D21ABBD0048B47E /* Build configuration list for PBXProject "TableDiff" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9513DCC1D21ABBD0048B47E /* Debug */,
@@ -591,7 +592,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9513DCE1D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "DeepDiff" */ = {
+		D9513DCE1D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "TableDiff" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9513DCF1D21ABBD0048B47E /* Debug */,
@@ -600,7 +601,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9513DD11D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "DeepDiffTests" */ = {
+		D9513DD11D21ABBD0048B47E /* Build configuration list for PBXNativeTarget "TableDiffTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9513DD21D21ABBD0048B47E /* Debug */,

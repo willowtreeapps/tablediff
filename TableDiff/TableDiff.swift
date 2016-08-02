@@ -1,6 +1,6 @@
 //
-//  DeepDif.swift
-//  DeepDiff
+//  TableDiff.swift
+//  TableDiff
 //
 //  Created by Kent White on 6/27/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
@@ -78,7 +78,7 @@ public enum Implementation {
 
 public extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.Index: Hashable, Self.Index: BidirectionalIndexType {
     /// Creates a deep diff between two sequences.
-    public func deepDiff(b: Self, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) ->
+    public func tableDiff(b: Self, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) ->
         (diff: Set<DiffStep<Self.Index>>,
         updates: Set<Self.Index>)
     {

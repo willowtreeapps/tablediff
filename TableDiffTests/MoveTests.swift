@@ -1,23 +1,23 @@
 //
 //  MoveTests.swift
-//  DeepDiff
+//  TableDiff
 //
 //  Created by Ian Terrell on 6/28/16.
 //  Copyright © 2016 WillowTree. All rights reserved.
 //
 
 import XCTest
-import DeepDiff
+import TableDiff
 
 class LCSMoveTests: XCTestCase {
-    func deepDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
-        return x.deepDiff(y, implementation: .lcs)
+    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+        return x.tableDiff(y, implementation: .lcs)
     }
 
     func testMoveHead() {
         let x: [Int] = [0, 1, 2, 3]
         let y: [Int] = [1, 2, 3, 0]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 0),
             DiffStep.insert(atIndex: 3),
@@ -29,7 +29,7 @@ class LCSMoveTests: XCTestCase {
     func testMoveTail() {
         let x: [Int] = [1, 2, 3, 0]
         let y: [Int] = [0, 1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.insert(atIndex: 0),
             DiffStep.delete(fromIndex: 3),
@@ -41,7 +41,7 @@ class LCSMoveTests: XCTestCase {
     func testMoveMiddle() {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 0, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 1),
             DiffStep.insert(atIndex: 2),
@@ -54,7 +54,7 @@ class LCSMoveTests: XCTestCase {
     func testMoveMultiple() {
         let x: [Int] = [1, 2, 3]
         let y: [Int] = [3, 2, 1]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 0),
             DiffStep.delete(fromIndex: 1),
@@ -68,7 +68,7 @@ class LCSMoveTests: XCTestCase {
     func testComplexMove() {
         let x: [Int] = [342, 604, 390, 870, 745]
         let y: [Int] = [870, 604, 745, 390, 342]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.delete(fromIndex: 0),
             DiffStep.delete(fromIndex: 1),
@@ -83,14 +83,14 @@ class LCSMoveTests: XCTestCase {
 }
 
 class LCSWithMovesMoveTests: XCTestCase {
-    func deepDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
-        return x.deepDiff(y, implementation: .lcsWithMoves)
+    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+        return x.tableDiff(y, implementation: .lcsWithMoves)
     }
 
     func testMoveHead() {
         let x: [Int] = [0, 1, 2, 3]
         let y: [Int] = [1, 2, 3, 0]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.move(fromIndex: 0, toIndex: 3)], diff)
         XCTAssertEqual([], updates)
     }
@@ -98,7 +98,7 @@ class LCSWithMovesMoveTests: XCTestCase {
     func testMoveTail() {
         let x: [Int] = [1, 2, 3, 0]
         let y: [Int] = [0, 1, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.move(fromIndex: 3, toIndex: 0)], diff)
         XCTAssertEqual([], updates)
     }
@@ -106,7 +106,7 @@ class LCSWithMovesMoveTests: XCTestCase {
     func testMoveMiddle() {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 0, 2, 3]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         XCTAssertEqual([DiffStep.move(fromIndex: 1, toIndex: 2)], diff)
         XCTAssertEqual([], updates)
     }
@@ -115,7 +115,7 @@ class LCSWithMovesMoveTests: XCTestCase {
     func testMoveMultiple() {
         let x: [Int] = [1, 2, 3]
         let y: [Int] = [3, 2, 1]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.insert(atIndex: 1),
             DiffStep.move(fromIndex: 0, toIndex: 2),
@@ -128,7 +128,7 @@ class LCSWithMovesMoveTests: XCTestCase {
     func testComplexMove() {
         let x: [Int] = [342, 604, 390, 870, 745]
         let y: [Int] = [870, 604, 745, 390, 342]
-        let (diff, updates) = deepDiff(x, y)
+        let (diff, updates) = tableDiff(x, y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.insert(atIndex: 1),
             DiffStep.move(fromIndex: 2, toIndex: 3),
@@ -142,14 +142,14 @@ class LCSWithMovesMoveTests: XCTestCase {
 
 
 class AllMovesMoveTests: XCTestCase {
-    func deepDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
-        return x.deepDiff(y, implementation: .allMoves)
+    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+        return x.tableDiff(y, implementation: .allMoves)
     }
 
     func testMoveHead() {
         let x: [Int] = [0, 1, 2, 3]
         let y: [Int] = [1, 2, 3, 0]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.move(fromIndex: 0, toIndex: 3),
@@ -164,7 +164,7 @@ class AllMovesMoveTests: XCTestCase {
     func testMoveTail() {
         let x: [Int] = [1, 2, 3, 0]
         let y: [Int] = [0, 1, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.move(fromIndex: 0, toIndex: 1),
@@ -179,7 +179,7 @@ class AllMovesMoveTests: XCTestCase {
     func testMoveMiddle() {
         let x: [Int] = [1, 2, 0, 3]
         let y: [Int] = [1, 0, 2, 3]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.move(fromIndex: 1, toIndex: 2),
@@ -193,7 +193,7 @@ class AllMovesMoveTests: XCTestCase {
     func testMoveMultiple() {
         let x: [Int] = [1, 2, 3]
         let y: [Int] = [3, 2, 1]
-        var (diff, updates) = deepDiff(x, y)
+        var (diff, updates) = tableDiff(x, y)
         diff = trimMovesFromDiff(diff)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.move(fromIndex: 0, toIndex: 2),
@@ -208,7 +208,7 @@ class AllMovesMoveTests: XCTestCase {
         for _ in 0..<n {
             let x = randomArray()
             let y = x.shuffled()
-            let (diff, updates) = x.deepDiff(y)
+            let (diff, updates) = x.tableDiff(y)
             for d in diff {
                 switch d {
                 case .move:
@@ -224,7 +224,7 @@ class AllMovesMoveTests: XCTestCase {
     func testComplexMove() {
         let x: [Int] = [342, 604, 390, 870, 745]
         let y: [Int] = [870, 604, 745, 390, 342]
-        let (diff, updates) = x.deepDiff(y)
+        let (diff, updates) = x.tableDiff(y)
         let expectedDiff: Set<DiffStep<Int>> = [
             DiffStep.move(fromIndex: 0, toIndex: 4),
             DiffStep.move(fromIndex: 2, toIndex: 3),
