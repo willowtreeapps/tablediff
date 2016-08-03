@@ -10,7 +10,7 @@
 		C673A85F1D353527001C717D /* UIKit+Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C673A85E1D353527001C717D /* UIKit+Diff.swift */; };
 		D9513DBE1D21ABBD0048B47E /* TableDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = D9513DBD1D21ABBD0048B47E /* TableDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9513DC51D21ABBD0048B47E /* TableDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9513DBA1D21ABBD0048B47E /* TableDiff.framework */; };
-		D9513DCA1D21ABBD0048B47E /* TableDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DC91D21ABBD0048B47E /* TableDiffTests.swift */; };
+		D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */; };
 		D9513DD51D21ABDA0048B47E /* TableDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD41D21ABDA0048B47E /* TableDiff.swift */; };
 		D9513DD91D21B6760048B47E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DD81D21B6760048B47E /* Helpers.swift */; };
 		D9513DDB1D21BA380048B47E /* InsertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9513DDA1D21BA380048B47E /* InsertTests.swift */; };
@@ -27,26 +27,26 @@
 			containerPortal = D9513DB11D21ABBD0048B47E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D9513DB91D21ABBD0048B47E;
-			remoteInfo = TableDiff;
+			remoteInfo = DeepDiff;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C673A85E1D353527001C717D /* UIKit+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Diff.swift"; path = "Sources/UIKit+Diff.swift"; sourceTree = SOURCE_ROOT; };
+		C673A85E1D353527001C717D /* UIKit+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Diff.swift"; path = "/Users/kentwhite/Documents/Git/TableDiff/Sources/UIKit+Diff.swift"; sourceTree = "<absolute>"; };
 		D9513DBA1D21ABBD0048B47E /* TableDiff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TableDiff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9513DBD1D21ABBD0048B47E /* TableDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TableDiff.h; path = TableDiff/TableDiff.h; sourceTree = SOURCE_ROOT; };
-		D9513DBF1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9513DBF1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/kentwhite/Documents/Git/TableDiff/TableDiff/Info.plist; sourceTree = "<absolute>"; };
 		D9513DC41D21ABBD0048B47E /* TableDiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableDiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9513DC91D21ABBD0048B47E /* TableDiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDiffTests.swift; sourceTree = "<group>"; };
+		D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepDiffTests.swift; sourceTree = "<group>"; };
 		D9513DCB1D21ABBD0048B47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9513DD41D21ABDA0048B47E /* TableDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableDiff.swift; path = Sources/TableDiff.swift; sourceTree = SOURCE_ROOT; };
+		D9513DD41D21ABDA0048B47E /* TableDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableDiff.swift; path = /Users/kentwhite/Documents/Git/TableDiff/Sources/TableDiff.swift; sourceTree = "<absolute>"; };
 		D9513DD81D21B6760048B47E /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D9513DDA1D21BA380048B47E /* InsertTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertTests.swift; sourceTree = "<group>"; };
 		D9513DDC1D21BAA30048B47E /* DeleteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTests.swift; sourceTree = "<group>"; };
 		D9DB58121D22D14300B5870F /* MoveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveTests.swift; sourceTree = "<group>"; };
 		D9DB58181D22D4CB00B5870F /* UpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTests.swift; sourceTree = "<group>"; };
-		D9F181501D341CE40061A9EF /* LCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LCS.swift; path = Sources/LCS.swift; sourceTree = SOURCE_ROOT; };
-		D9F181521D34330D0061A9EF /* AllMoves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllMoves.swift; path = Sources/AllMoves.swift; sourceTree = SOURCE_ROOT; };
+		D9F181501D341CE40061A9EF /* LCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LCS.swift; path = /Users/kentwhite/Documents/Git/TableDiff/Sources/LCS.swift; sourceTree = "<absolute>"; };
+		D9F181521D34330D0061A9EF /* AllMoves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllMoves.swift; path = /Users/kentwhite/Documents/Git/TableDiff/Sources/AllMoves.swift; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,14 +96,15 @@
 				D9F181521D34330D0061A9EF /* AllMoves.swift */,
 				C673A85E1D353527001C717D /* UIKit+Diff.swift */,
 			);
-			path = TableDiff;
+			name = TableDiff;
+			path = DeepDiff;
 			sourceTree = "<group>";
 		};
 		D9513DC81D21ABBD0048B47E /* TableDiffTests */ = {
 			isa = PBXGroup;
 			children = (
 				D9513DD81D21B6760048B47E /* Helpers.swift */,
-				D9513DC91D21ABBD0048B47E /* TableDiffTests.swift */,
+				D9513DC91D21ABBD0048B47E /* DeepDiffTests.swift */,
 				D9513DDA1D21BA380048B47E /* InsertTests.swift */,
 				D9513DDC1D21BAA30048B47E /* DeleteTests.swift */,
 				D9DB58121D22D14300B5870F /* MoveTests.swift */,
@@ -141,7 +142,7 @@
 			dependencies = (
 			);
 			name = TableDiff;
-			productName = TableDiff;
+			productName = DeepDiff;
 			productReference = D9513DBA1D21ABBD0048B47E /* TableDiff.framework */;
 			productType = "com.apple.product-type.framework";
 		};
@@ -159,7 +160,7 @@
 				D9513DC71D21ABBD0048B47E /* PBXTargetDependency */,
 			);
 			name = TableDiffTests;
-			productName = TableDiffTests;
+			productName = DeepDiffTests;
 			productReference = D9513DC41D21ABBD0048B47E /* TableDiffTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -234,7 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9DB58131D22D14300B5870F /* MoveTests.swift in Sources */,
-				D9513DCA1D21ABBD0048B47E /* TableDiffTests.swift in Sources */,
+				D9513DCA1D21ABBD0048B47E /* DeepDiffTests.swift in Sources */,
 				D9DB58191D22D4CB00B5870F /* UpdateTests.swift in Sources */,
 				D9513DD91D21B6760048B47E /* Helpers.swift in Sources */,
 				D9513DDD1D21BAA30048B47E /* DeleteTests.swift in Sources */,
