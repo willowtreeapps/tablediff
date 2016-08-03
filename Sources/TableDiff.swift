@@ -32,11 +32,11 @@ public enum DiffStep<Index: Hashable>: Hashable, CustomDebugStringConvertible {
     public var hashValue: Int {
         switch self {
         case insert(let i):
-            return 100000000 + i.hashValue
+            return Hash.combine("insert", i)
         case delete(let i):
-            return 200000000 + i.hashValue
+            return Hash.combine("delete", i)
         case move(let from, _):
-            return 300000000 + from.hashValue
+            return Hash.combine("move", from)
         }
     }
 
@@ -90,5 +90,16 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable, 
         case .allMoves:
             return allMovesTableDiff(b, updateStyle: updateStyle)
         }
+    }
+}
+
+// See http://stackoverflow.com/a/27952689 & comments
+enum Hash {
+    static let _hashConstant: UInt64 = 0x9e3779b97f4a7c16
+    static let hashConstant = Int(_hashConstant)
+    static func combine<T: Hashable, U: Hashable>(lhs: T, _ rhs: U) -> Int {
+        let lhs = lhs.hashValue
+        let rhs = rhs.hashValue
+        return lhs ^ (rhs + hashConstant + (lhs << 6) + (lhs >> 2))
     }
 }
