@@ -20,11 +20,9 @@ final class AppCoordinator: NSObject, TabBarControllerCoordinator, SubscriberTyp
             //Scene(prefix: "random moves", coordinator: PaginationCoordinator(store: store)),
         ]
         
-        tabBarController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateInitialViewController() as! UITabBarController
+        tabBarController = container as! UITabBarController
         
         tabBarController.viewControllers = scenes.map { $0.coordinator.rootViewController }
-        print(tabBarController.viewControllers?.count)
     }
     
     func start(route: Route) {
