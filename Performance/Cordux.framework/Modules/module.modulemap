@@ -1,0 +1,10 @@
+framework module Cordux {
+  umbrella header "Cordux.h"
+
+  export *
+  module * { export * }
+}
+
+module Cordux.Swift {
+    header "Cordux-Swift.h"
+}
