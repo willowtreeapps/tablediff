@@ -100,6 +100,6 @@ enum Hash {
     static func combine<T: Hashable, U: Hashable>(lhs: T, _ rhs: U) -> Int {
         let lhs = lhs.hashValue
         let rhs = rhs.hashValue
-        return lhs ^ (rhs + hashConstant + (lhs << 6) + (lhs >> 2))
+        return lhs ^ (rhs &+ hashConstant &+ (lhs << 6) &+ (lhs >> 2))
     }
 }
