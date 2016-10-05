@@ -9,37 +9,37 @@
 import UIKit
 
 public extension UITableView {
-    public func applyDiff(diff: Set<DiffStep<Int>>,
+    public func applyDiff(_ diff: Set<DiffStep<Int>>,
                           section: Int = 0,
-                          insertRowAnimation: UITableViewRowAnimation = .Automatic,
-                          deleteRowAnimation: UITableViewRowAnimation = .Automatic)
+                          insertRowAnimation: UITableViewRowAnimation = .automatic,
+                          deleteRowAnimation: UITableViewRowAnimation = .automatic)
     {
         beginUpdates()
-        var insertionIndexPaths: [NSIndexPath] = []
-        var deletionIndexPaths: [NSIndexPath] = []
+        var insertionIndexPaths: [IndexPath] = []
+        var deletionIndexPaths: [IndexPath] = []
         for step in diff {
             switch step {
             case .insert(let index):
-                insertionIndexPaths.append(NSIndexPath(forRow: index, inSection: section))
+                insertionIndexPaths.append(IndexPath(row: index, section: section))
             case .delete(let index):
-                deletionIndexPaths.append(NSIndexPath(forRow: index, inSection: section))
+                deletionIndexPaths.append(IndexPath(row: index, section: section))
             case .move(let from, let to):
-                moveRowAtIndexPath(NSIndexPath(forRow: from, inSection: section),
-                                   toIndexPath: NSIndexPath(forRow: to, inSection: section))
+                moveRow(at: IndexPath(row: from, section: section),
+                                   to: IndexPath(row: to, section: section))
             }
         }
-        insertRowsAtIndexPaths(insertionIndexPaths, withRowAnimation: insertRowAnimation)
-        deleteRowsAtIndexPaths(deletionIndexPaths, withRowAnimation: deleteRowAnimation)
+        insertRows(at: insertionIndexPaths, with: insertRowAnimation)
+        deleteRows(at: deletionIndexPaths, with: deleteRowAnimation)
         endUpdates()
     }
     
-    public func applyDiff(diff: Set<DiffStep<NSIndexPath>>,
-                          insertRowAnimation: UITableViewRowAnimation = .Automatic,
-                          deleteRowAnimation: UITableViewRowAnimation = .Automatic)
+    public func applyDiff(_ diff: Set<DiffStep<IndexPath>>,
+                          insertRowAnimation: UITableViewRowAnimation = .automatic,
+                          deleteRowAnimation: UITableViewRowAnimation = .automatic)
     {
         beginUpdates()
-        var insertionIndexPaths: [NSIndexPath] = []
-        var deletionIndexPaths: [NSIndexPath] = []
+        var insertionIndexPaths: [IndexPath] = []
+        var deletionIndexPaths: [IndexPath] = []
         for step in diff {
             switch step {
             case .insert(let index):
@@ -47,44 +47,44 @@ public extension UITableView {
             case .delete(let index):
                 deletionIndexPaths.append(index)
             case .move(let from, let to):
-                moveRowAtIndexPath(from, toIndexPath: to)
+                moveRow(at: from, to: to)
             }
         }
-        insertRowsAtIndexPaths(insertionIndexPaths, withRowAnimation: insertRowAnimation)
-        deleteRowsAtIndexPaths(deletionIndexPaths, withRowAnimation: deleteRowAnimation)
+        insertRows(at: insertionIndexPaths, with: insertRowAnimation)
+        deleteRows(at: deletionIndexPaths, with: deleteRowAnimation)
         endUpdates()
     }
 }
 
 public extension UICollectionView {
-    public func applyDiff(diff: Set<DiffStep<Int>>,
+    public func applyDiff(_ diff: Set<DiffStep<Int>>,
                           section: Int = 0,
                           completion: ((Bool) -> Void)? = nil)
     {
         performBatchUpdates({
-            var insertionIndexPaths: [NSIndexPath] = []
-            var deletionIndexPaths: [NSIndexPath] = []
+            var insertionIndexPaths: [IndexPath] = []
+            var deletionIndexPaths: [IndexPath] = []
             for step in diff {
                 switch step {
                 case .insert(let i):
-                    insertionIndexPaths.append(NSIndexPath(forRow: i, inSection: section))
+                    insertionIndexPaths.append(IndexPath(row: i, section: section))
                 case .delete(let i):
-                    deletionIndexPaths.append(NSIndexPath(forRow: i, inSection: section))
+                    deletionIndexPaths.append(IndexPath(row: i, section: section))
                 case .move(let fromIndex, let toIndex):
-                    self.moveItemAtIndexPath(NSIndexPath(forRow: fromIndex, inSection: section),
-                        toIndexPath: NSIndexPath(forRow: toIndex, inSection: section))
+                    self.moveItem(at: IndexPath(row: fromIndex, section: section),
+                        to: IndexPath(row: toIndex, section: section))
                 }
             }
-            self.insertItemsAtIndexPaths(insertionIndexPaths)
-            self.deleteItemsAtIndexPaths(deletionIndexPaths)
+            self.insertItems(at: insertionIndexPaths)
+            self.deleteItems(at: deletionIndexPaths)
         }, completion: completion)
         
     }
     
-    public func applyDiff(diff: Set<DiffStep<NSIndexPath>>, completion: ((Bool) -> Void)? = nil) {
+    public func applyDiff(_ diff: Set<DiffStep<IndexPath>>, completion: ((Bool) -> Void)? = nil) {
         performBatchUpdates({
-            var insertionIndexPaths: [NSIndexPath] = []
-            var deletionIndexPaths: [NSIndexPath] = []
+            var insertionIndexPaths: [IndexPath] = []
+            var deletionIndexPaths: [IndexPath] = []
             for step in diff {
                 switch step {
                 case .insert(let i):
@@ -92,11 +92,11 @@ public extension UICollectionView {
                 case .delete(let i):
                     deletionIndexPaths.append(i)
                 case .move(let fromIndex, let toIndex):
-                    self.moveItemAtIndexPath(fromIndex, toIndexPath: toIndex)
+                    self.moveItem(at: fromIndex, to: toIndex)
                 }
             }
-            self.insertItemsAtIndexPaths(insertionIndexPaths)
-            self.deleteItemsAtIndexPaths(deletionIndexPaths)
+            self.insertItems(at: insertionIndexPaths)
+            self.deleteItems(at: deletionIndexPaths)
         }, completion: completion)
     }
 }
