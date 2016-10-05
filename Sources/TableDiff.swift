@@ -31,22 +31,22 @@ public enum DiffStep<Index: Hashable>: Hashable, CustomDebugStringConvertible {
 
     public var hashValue: Int {
         switch self {
-        case insert(let i):
+        case .insert(let i):
             return Hash.combine("insert", i)
-        case delete(let i):
+        case .delete(let i):
             return Hash.combine("delete", i)
-        case move(let from, _):
+        case .move(let from, _):
             return Hash.combine("move", from)
         }
     }
 
     public var debugDescription: String {
         switch self {
-        case insert(let index):
+        case .insert(let index):
             return "Insert \(index)"
-        case delete(let index):
+        case .delete(let index):
             return "Delete \(index)"
-        case move(let from, let to):
+        case .move(let from, let to):
             return "Move \(from) -> \(to)"
         }
     }
@@ -76,9 +76,9 @@ public enum Implementation {
     case allMoves
 }
 
-public extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.Index: Hashable, Self.Index: BidirectionalIndexType {
+public extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable, Self.Index: Comparable, Self.IndexDistance == Int {
     /// Creates a deep diff between two sequences.
-    public func tableDiff(b: Self, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) ->
+    public func tableDiff(_ b: Self, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) ->
         (diff: Set<DiffStep<Self.Index>>,
         updates: Set<Self.Index>)
     {
@@ -97,7 +97,7 @@ public extension CollectionType where Self.Generator.Element: SequenceDiffable, 
 enum Hash {
     static let _hashConstant: UInt64 = 0x9e3779b97f4a7c16
     static let hashConstant = Int(_hashConstant)
-    static func combine<T: Hashable, U: Hashable>(lhs: T, _ rhs: U) -> Int {
+    static func combine<T: Hashable, U: Hashable>(_ lhs: T, _ rhs: U) -> Int {
         let lhs = lhs.hashValue
         let rhs = rhs.hashValue
         return lhs ^ (rhs + hashConstant + (lhs << 6) + (lhs >> 2))

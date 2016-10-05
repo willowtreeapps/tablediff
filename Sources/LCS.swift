@@ -35,15 +35,15 @@ extension DiffStep {
     }
 }
 
-extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.Index: Hashable, Self.Index: BidirectionalIndexType {
-    func lcsTableDiff(b: Self, processMoves: Bool, updateStyle: UpdateIndicesStyle) ->
+extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable {
+    func lcsTableDiff(_ b: Self, processMoves: Bool, updateStyle: UpdateIndicesStyle) ->
         (diff: Set<DiffStep<Self.Index>>,
         updates: Set<Self.Index>)
     {
         let a = self
         let (table, updates) = buildTable(a, b, updateStyle: updateStyle)
         if processMoves {
-            let diff: [ItemDiffStep<Self.Generator.Element, Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
+            let diff: [ItemDiffStep<Self.Iterator.Element, Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
             return (processDiff(diff), updates)
         } else {
             let diff: [DiffStep<Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
@@ -51,13 +51,13 @@ extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.In
         }
     }
 
-    func buildTable(a: Self, _ b: Self, updateStyle: UpdateIndicesStyle) -> ([[Int]], Set<Self.Index>) {
-        var table = Array(count: Int(a.count.toIntMax()) + 1, repeatedValue: Array(count: Int(b.count.toIntMax()) + 1, repeatedValue: 0))
+    func buildTable(_ a: Self, _ b: Self, updateStyle: UpdateIndicesStyle) -> ([[Int]], Set<Self.Index>) {
+        var table = Array(repeating: Array(repeating: 0, count: Int(b.count.toIntMax()) + 1), count: Int(a.count.toIntMax()) + 1)
         var updates: Set<Self.Index> = []
         var indexA = a.startIndex
-        for (i, firstElement) in a.enumerate() {
+        for (i, firstElement) in a.enumerated() {
             var indexB = b.startIndex
-            for (j, secondElement) in b.enumerate() {
+            for (j, secondElement) in b.enumerated() {
                 if firstElement.identifier == secondElement.identifier {
                     if firstElement != secondElement {
                         print("Indices a: \(indexA) b: \(indexB)")
@@ -65,58 +65,58 @@ extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.In
                     }
                     table[i+1][j+1] = table[i][j] + 1
                 } else {
-                    table[i+1][j+1] = max(table[i][j+1], table[i+1][j])
+                    table[i+1][j+1] = Swift.max(table[i][j+1], table[i+1][j])
                 }
-                indexB = indexB.successor()
+                indexB = b.index(after: indexB)
             }
-            indexA = indexA.successor()
+            indexA = a.index(after: indexA)
         }
         return (table, updates)
     }
 
-    func buildDiff(table: [[Int]], _ x: Self, _ y: Self, _ i: Index, _ j: Index, _ ii: Int, _ jj: Int) -> [DiffStep<Self.Index>] {
+    func buildDiff(_ table: [[Int]], _ x: Self, _ y: Self, _ i: Index, _ j: Index, _ ii: Int, _ jj: Int) -> [DiffStep<Self.Index>] {
         if ii == 0 && jj == 0 {
             return []
         } else if ii == 0 {
-            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) +
-                [DiffStep.insert(atIndex: j.predecessor())]
+            return buildDiff(table, x, y, i, y.index(before: j), ii, jj - 1) +
+                [DiffStep.insert(atIndex: y.index(before: j))]
         } else if jj == 0 {
-            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) +
-                [DiffStep.delete(fromIndex: i.predecessor())]
+            return buildDiff(table, x, y, x.index(before: i), j, ii - 1, jj) +
+                [DiffStep.delete(fromIndex: x.index(before: i))]
         } else if table[ii][jj] == table[ii][jj - 1] {
-            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) +
-                [DiffStep.insert(atIndex: j.predecessor())]
+            return buildDiff(table, x, y, i, y.index(before: j), ii, jj - 1) +
+                [DiffStep.insert(atIndex: y.index(before: j))]
         } else if table[ii][jj] == table[ii-1][jj] {
-            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) +
-                [DiffStep.delete(fromIndex: i.predecessor())]
+            return buildDiff(table, x, y, x.index(before: i), j, ii - 1, jj) +
+                [DiffStep.delete(fromIndex: x.index(before: i))]
         } else {
-            return buildDiff(table, x, y, i.predecessor(), j.predecessor(), ii - 1, jj - 1)
+            return buildDiff(table, x, y, x.index(before: i), y.index(before: j), ii - 1, jj - 1)
         }
     }
 
-    func buildDiff(table: [[Int]], _ x: Self, _ y: Self, _ i: Index, _ j: Index, _ ii: Int, _ jj: Int) -> [ItemDiffStep<Self.Generator.Element, Self.Index>] {
+    func buildDiff(_ table: [[Int]], _ x: Self, _ y: Self, _ i: Index, _ j: Index, _ ii: Int, _ jj: Int) -> [ItemDiffStep<Self.Iterator.Element, Self.Index>] {
         if ii == 0 && jj == 0 {
             return[]
         } else if ii == 0 {
-            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) +
-                [ItemDiffStep(item: y[j.predecessor()], step: DiffStep.insert(atIndex: j.predecessor()))]
+            return buildDiff(table, x, y, i, y.index(before: j), ii, jj - 1) +
+                [ItemDiffStep(item: y[y.index(before: j)], step: DiffStep.insert(atIndex: y.index(before: j)))]
         } else if jj == 0 {
-            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) +
-                [ItemDiffStep(item: x[i.predecessor()], step: DiffStep.delete(fromIndex: i.predecessor()))]
+            return buildDiff(table, x, y, x.index(before: i), j, ii - 1, jj) +
+                [ItemDiffStep(item: x[x.index(before: i)], step: DiffStep.delete(fromIndex: x.index(before: i)))]
         } else if table[ii][jj] == table[ii][jj - 1] {
-            return buildDiff(table, x, y, i, j.predecessor(), ii, jj - 1) +
-                [ItemDiffStep(item: y[j.predecessor()], step: DiffStep.insert(atIndex: j.predecessor()))]
+            return buildDiff(table, x, y, i, y.index(before: j), ii, jj - 1) +
+                [ItemDiffStep(item: y[y.index(before: j)], step: DiffStep.insert(atIndex: y.index(before: j)))]
         } else if table[ii][jj] == table[ii-1][jj] {
-            return buildDiff(table, x, y, i.predecessor(), j, ii - 1, jj) +
-                [ItemDiffStep(item: x[i.predecessor()], step: DiffStep.delete(fromIndex: i.predecessor()))]
+            return buildDiff(table, x, y, x.index(before: i), j, ii - 1, jj) +
+                [ItemDiffStep(item: x[x.index(before: i)], step: DiffStep.delete(fromIndex: x.index(before: i)))]
         } else {
-            return buildDiff(table, x, y, i.predecessor(), j.predecessor(), ii - 1, jj - 1)
+            return buildDiff(table, x, y, x.index(before: i), y.index(before: j), ii - 1, jj - 1)
         }
     }
 
-    func processDiff(diff: [ItemDiffStep<Self.Generator.Element, Self.Index>]) -> Set<DiffStep<Self.Index>>  {
+    func processDiff(_ diff: [ItemDiffStep<Self.Iterator.Element, Self.Index>]) -> Set<DiffStep<Self.Index>>  {
         var newDiff: Set<DiffStep<Self.Index>> = []
-        var dict: [Self.Generator.Element: ItemDiffStep<Self.Generator.Element, Self.Index>] = [:]
+        var dict: [Self.Iterator.Element: ItemDiffStep<Self.Iterator.Element, Self.Index>] = [:]
         for d in diff {
             let stepValue = d.item
             let step = d.step

@@ -8,25 +8,25 @@
 
 import Foundation
 
-extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.Index: Hashable, Self.Index: BidirectionalIndexType {
-    func allMovesTableDiff(other: Self, updateStyle: UpdateIndicesStyle) ->
+extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable, Self.IndexDistance == Int {
+    func allMovesTableDiff(_ other: Self, updateStyle: UpdateIndicesStyle) ->
         (diff: Set<DiffStep<Self.Index>>,
         updates: Set<Self.Index>)
     {
-        var a_cache: [Self.Generator.Element.IdentifierType: (item: Self.Generator.Element, indices: [Self.Index])] = [:]
+        var a_cache: [Self.Iterator.Element.IdentifierType: (item: Self.Iterator.Element, indices: [Self.Index])] = [:]
         var a_index = self.startIndex
         for a in self {
             a_cache[a.identifier] = a_cache[a.identifier] ?? (item: a, indices: [])
             a_cache[a.identifier]?.indices.append(a_index)
-            a_index = a_index.successor()
+            a_index = self.index(after: a_index)
         }
 
-        var b_cache: [Self.Generator.Element.IdentifierType: (item: Self.Generator.Element, indices: [Self.Index])] = [:]
+        var b_cache: [Self.Iterator.Element.IdentifierType: (item: Self.Iterator.Element, indices: [Self.Index])] = [:]
         var b_index = self.startIndex
         for b in other {
             b_cache[b.identifier] = b_cache[b.identifier] ?? (item: b, indices: [])
             b_cache[b.identifier]?.indices.append(b_index)
-            b_index = b_index.successor()
+            b_index = self.index(after: b_index)
         }
 
         var diff: Set<DiffStep<Self.Index>> = []
@@ -51,9 +51,9 @@ extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.In
                 diff.insert(.delete(fromIndex: indices[i]))
             }
 
-            b_indices.removeFirst(min(moves.count, b_indices.count))
+            b_indices.removeFirst(Swift.min(moves.count, b_indices.count))
             if b_indices.isEmpty {
-                b_cache.removeValueForKey(id)
+                b_cache.removeValue(forKey: id)
             } else {
                 b_cache[id]?.indices = b_indices
             }
@@ -65,7 +65,7 @@ extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.In
                 diff.insert(.insert(atIndex: indices[i]))
             }
 
-            b_cache.removeValueForKey(id)
+            b_cache.removeValue(forKey: id)
         }
 
         return (diff: diff, updates: updates)
@@ -77,7 +77,7 @@ extension CollectionType where Self.Generator.Element: SequenceDiffable, Self.In
 ///
 /// - Note: It is safe to pass superfluous move commands to TableView and CollectionView, so this 
 ///   function is not necessary for the UI. It is provided as a convenience for debugging.
-public func trimMovesFromDiff(diff: Set<DiffStep<Int>>) -> Set<DiffStep<Int>> {
+public func trimMovesFromDiff(_ diff: Set<DiffStep<Int>>) -> Set<DiffStep<Int>> {
     var diff = diff
     var deletes: [Int] = []
     var inserts: [Int] = []
@@ -95,8 +95,8 @@ public func trimMovesFromDiff(diff: Set<DiffStep<Int>>) -> Set<DiffStep<Int>> {
         }
     }
 
-    func count(indices: [Int]) -> [Int:Int] {
-        let indices = indices.sort()
+    func count(_ indices: [Int]) -> [Int:Int] {
+        let indices = indices.sorted()
         var byIndex: [Int:Int] = [:]
         var count = 0
         for i in indices {
@@ -109,7 +109,7 @@ public func trimMovesFromDiff(diff: Set<DiffStep<Int>>) -> Set<DiffStep<Int>> {
     var deletesByIndex = count(deletes)
     var insertsByIndex = count(inserts)
 
-    func countAtIndex(inout counts: [Int:Int], index: Int) -> Int {
+    func countAtIndex(_ counts: inout [Int:Int], index: Int) -> Int {
         var i = index
         var count = counts[index]
         while count == nil && i >= 0 {

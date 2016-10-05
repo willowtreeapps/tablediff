@@ -10,7 +10,7 @@ import XCTest
 import TableDiff
 
 class LCSMoveTests: XCTestCase {
-    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+    func tableDiff(_ x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
         return x.tableDiff(y, implementation: .lcs)
     }
 
@@ -83,7 +83,7 @@ class LCSMoveTests: XCTestCase {
 }
 
 class LCSWithMovesMoveTests: XCTestCase {
-    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+    func tableDiff(_ x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
         return x.tableDiff(y, implementation: .lcsWithMoves)
     }
 
@@ -142,7 +142,7 @@ class LCSWithMovesMoveTests: XCTestCase {
 
 
 class AllMovesMoveTests: XCTestCase {
-    func tableDiff(x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
+    func tableDiff(_ x: [Int], _ y: [Int]) -> (diff: Set<DiffStep<Int>>, updates: Set<Int>) {
         return x.tableDiff(y, implementation: .allMoves)
     }
 

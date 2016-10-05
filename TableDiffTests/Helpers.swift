@@ -29,20 +29,20 @@ func ==(lhs: Widget, rhs: Widget) -> Bool {
     return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.price == rhs.price
 }
 
-func randomArray(minSize: Int = 0, maxSize: Int = 100, minValue: Int = 0, maxValue: Int = 1000) -> [Int] {
+func randomArray(_ minSize: Int = 0, maxSize: Int = 100, minValue: Int = 0, maxValue: Int = 1000) -> [Int] {
     let count = UInt32(minSize) + arc4random_uniform(UInt32(maxSize-minSize))
     return (0..<count).map { _ in minValue + Int(arc4random_uniform(UInt32(maxValue - minValue))) }
 }
 
-extension CollectionType {
-    func shuffled() -> [Generator.Element] {
+extension Collection {
+    func shuffled() -> [Iterator.Element] {
         var list = Array(self)
         list.shuffle()
         return list
     }
 }
 
-extension MutableCollectionType where Index == Int {
+extension MutableCollection where Index == Int, IndexDistance == Int {
     mutating func shuffle() {
         guard count > 1 else {
             return
