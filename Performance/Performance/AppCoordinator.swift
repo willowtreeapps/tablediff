@@ -9,35 +9,76 @@
 import UIKit
 import Cordux
 
-final class AppCoordinator: NSObject, TabBarControllerCoordinator, SubscriberType {
+final class AppCoordinator: SceneCoordinator, SubscriberType {
+    enum RouteSegment: String, RouteConvertible {
+        case test
+        case results
+    }
+    
+    var scenePrefix: String = RouteSegment.test.rawValue
     let store: Store
-    let scenes: [Scene]
-    let tabBarController: UITabBarController
+    let container: UIViewController
+    
+    var currentScene: AnyCoordinator?
+    
+    var rootViewController: UIViewController {
+        return container
+    }
+    
     init(store: Store, container: UIViewController) {
         self.store = store
-        scenes = [
-            Scene(prefix: "pagination", coordinator: PaginationCoordinator(store: store)),
-            //Scene(prefix: "random moves", coordinator: PaginationCoordinator(store: store)),
-        ]
-        
-        tabBarController = container as! UITabBarController
-        
-        tabBarController.viewControllers = scenes.map { $0.coordinator.rootViewController }
+        self.container = container
     }
     
     func start(route: Route) {
-        tabBarController.delegate = self
-        scenes.forEach { $0.coordinator.start([]) }
-        store.setRoute(.push(scenes[tabBarController.selectedIndex]))
+        store.subscribe(self, RouteSubscription.init)
+        changeScene(route)
     }
     
     func newState(state: RouteSubscription) {
         self.route = state.route
     }
-}
-
-extension AppCoordinator: UITabBarControllerDelegate {
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        return setRouteForViewController(viewController)
+    
+    func changeScene(route: Route) {
+        guard let segment = RouteSegment(rawValue: route.first ?? "") else {
+            return
+        }
+        
+        let old = currentScene?.rootViewController
+        let coordinator: AnyCoordinator
+        switch segment {
+        case .test:
+            coordinator = TestCoordinator(store: store)
+        case .results:
+            coordinator = ResultsCoordinator(store: store)
+        }
+        
+        coordinator.start(sceneRoute(route))
+        currentScene = coordinator
+        scenePrefix = segment.rawValue
+        
+        let container = self.container
+        let new = coordinator.rootViewController
+        
+        old?.willMoveToParentViewController(nil)
+        container.addChildViewController(new)
+        container.view.addSubview(new.view)
+        
+        var constraints: [NSLayoutConstraint] = []
+        constraints.append(new.view.leftAnchor.constraintEqualToAnchor(container.view.leftAnchor))
+        constraints.append(new.view.rightAnchor.constraintEqualToAnchor(container.view.rightAnchor))
+        constraints.append(new.view.topAnchor.constraintEqualToAnchor(container.view.topAnchor))
+        constraints.append(new.view.bottomAnchor.constraintEqualToAnchor(container.view.bottomAnchor))
+        NSLayoutConstraint.activateConstraints(constraints)
+        
+        new.view.alpha = 0
+        UIView.animateWithDuration(0.3, animations: {
+            old?.view.alpha = 0
+            new.view.alpha = 1
+            }, completion: { _ in
+                old?.view.removeFromSuperview()
+                old?.removeFromParentViewController()
+                new.didMoveToParentViewController(container)
+        })
     }
 }

@@ -16,13 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var coordinator: AppCoordinator!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        guard let mainController = window?.rootViewController as? UITabBarController else {
+        guard let mainController = window?.rootViewController as? MainViewController else {
             fatalError()
         }
         
         UIViewController.swizzleLifecycleDelegatingViewControllerMethods()
         
         let state = AppState()
+        state.route = AppCoordinator.RouteSegment.test.route()
         let store = Store(initialState: state, reducer: AppReducer())
         
         coordinator = AppCoordinator(store: store, container: mainController)

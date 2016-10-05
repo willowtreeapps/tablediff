@@ -1,71 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GbJ-ap-Maf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xyp-1t-Mae">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
-        <scene sceneID="Tro-8R-1e0">
+        <!--Main View Controller-->
+        <scene sceneID="xXv-Rm-U57">
             <objects>
-                <tabBarController id="GbJ-ap-Maf" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="SUk-JT-iuJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZhY-Oa-fgR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="564" y="525"/>
-        </scene>
-        <!--Pagination-->
-        <scene sceneID="kPV-eK-bgC">
-            <objects>
-                <viewController storyboardIdentifier="Pagination" id="tD9-ty-JwN" customClass="PaginationViewController" customModule="Performance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xyp-1t-Mae" customClass="MainViewController" customModule="Performance" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dmp-Z4-je2"/>
-                        <viewControllerLayoutGuide type="bottom" id="d04-fn-1pM"/>
+                        <viewControllerLayoutGuide type="top" id="QgI-dV-uKD"/>
+                        <viewControllerLayoutGuide type="bottom" id="ahS-VL-im9"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="DAx-1M-QRd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIe-zI-pJA">
-                                <rect key="frame" x="277" y="285" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="EIe-zI-pJA" firstAttribute="centerY" secondItem="DAx-1M-QRd" secondAttribute="centerY" id="3vS-jD-rUC"/>
-                            <constraint firstItem="EIe-zI-pJA" firstAttribute="centerX" secondItem="DAx-1M-QRd" secondAttribute="centerX" id="Ko3-Ol-joq"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Pagination" id="wgT-Z2-JX0"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="V3K-ia-Xxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1300" y="213"/>
-        </scene>
-        <!--Results View Controller-->
-        <scene sceneID="km4-tB-qV7">
-            <objects>
-                <viewController storyboardIdentifier="results" id="xvs-7W-HvD" customClass="ResultsViewController" customModule="Performance" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="evc-6C-qsJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Iiw-Fr-0PM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VJa-0e-LTF">
+                    <view key="view" contentMode="scaleToFill" id="y99-d6-hmb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ci-8J-d54" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZKg-Zf-ZmO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2013" y="213"/>
+            <point key="canvasLocation" x="930" y="596"/>
         </scene>
     </scenes>
 </document>
