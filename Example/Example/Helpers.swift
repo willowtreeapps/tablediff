@@ -6,6 +6,9 @@
 //  Copyright © 2016 WillowTree. All rights reserved.
 //
 
+// This file comes for the repo https://github.com/bahlo/SwiftGif/
+// Used in our example for TableDiff
+
 import Foundation
 import UIKit
 import ImageIO
