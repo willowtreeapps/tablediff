@@ -50,6 +50,6 @@ class NumbersViewController: UITableViewController {
         let new = numbers[index]
 
         let (diff, _) = old.tableDiff(new)
-        tableView.applyDiff(diff)
+        tableView.apply(diff: diff)
     }
 }

@@ -9,10 +9,10 @@
 import UIKit
 
 public extension UITableView {
-    public func applyDiff(_ diff: Set<DiffStep<Int>>,
-                          section: Int = 0,
-                          insertRowAnimation: UITableViewRowAnimation = .automatic,
-                          deleteRowAnimation: UITableViewRowAnimation = .automatic)
+    public func apply(diff: Set<DiffStep<Int>>,
+                      section: Int = 0,
+                      insertRowAnimation: UITableViewRowAnimation = .automatic,
+                      deleteRowAnimation: UITableViewRowAnimation = .automatic)
     {
         beginUpdates()
         var insertionIndexPaths: [IndexPath] = []
@@ -32,10 +32,27 @@ public extension UITableView {
         deleteRows(at: deletionIndexPaths, with: deleteRowAnimation)
         endUpdates()
     }
+
+    public func updateVisible(rows updates: Set<Int>, _ callback: (Int) -> Void) {
+        guard let visibleRows = indexPathsForVisibleRows?.map({ $0.row }) else {
+            return
+        }
+        updates.intersection(Set(visibleRows)).forEach(callback)
+    }
+
+    public func apply(diff: (diff: Set<DiffStep<Int>>, updates: Set<Int>),
+                      section: Int = 0,
+                      insertRowAnimation insert: UITableViewRowAnimation = .automatic,
+                      deleteRowAnimation delete: UITableViewRowAnimation = .automatic,
+                      updateVisibleRow: (Int) -> Void)
+    {
+        apply(diff: diff.diff, section: section, insertRowAnimation: insert, deleteRowAnimation: delete)
+        updateVisible(rows: diff.updates, updateVisibleRow)
+    }
     
-    public func applyDiff(_ diff: Set<DiffStep<IndexPath>>,
-                          insertRowAnimation: UITableViewRowAnimation = .automatic,
-                          deleteRowAnimation: UITableViewRowAnimation = .automatic)
+    public func apply(diff: Set<DiffStep<IndexPath>>,
+                      insertRowAnimation: UITableViewRowAnimation = .automatic,
+                      deleteRowAnimation: UITableViewRowAnimation = .automatic)
     {
         beginUpdates()
         var insertionIndexPaths: [IndexPath] = []
@@ -54,12 +71,29 @@ public extension UITableView {
         deleteRows(at: deletionIndexPaths, with: deleteRowAnimation)
         endUpdates()
     }
+
+    @objc(updateVisibleRowByIndexPaths::)
+    public func updateVisible(rows updates: Set<IndexPath>, _ callback: (IndexPath) -> Void) {
+        guard let visibleRows = indexPathsForVisibleRows else {
+            return
+        }
+        updates.intersection(Set(visibleRows)).forEach(callback)
+    }
+
+    public func apply(diff: (diff: Set<DiffStep<IndexPath>>, updates: Set<IndexPath>),
+                      insertRowAnimation insert: UITableViewRowAnimation = .automatic,
+                      deleteRowAnimation delete: UITableViewRowAnimation = .automatic,
+                      updateVisibleRow: (IndexPath) -> Void)
+    {
+        apply(diff: diff.diff, insertRowAnimation: insert, deleteRowAnimation: delete)
+        updateVisible(rows: diff.updates, updateVisibleRow)
+    }
 }
 
 public extension UICollectionView {
-    public func applyDiff(_ diff: Set<DiffStep<Int>>,
-                          section: Int = 0,
-                          completion: ((Bool) -> Void)? = nil)
+    public func apply(diff: Set<DiffStep<Int>>,
+                      section: Int = 0,
+                      completion: ((Bool) -> Void)? = nil)
     {
         performBatchUpdates({
             var insertionIndexPaths: [IndexPath] = []
@@ -80,8 +114,22 @@ public extension UICollectionView {
         }, completion: completion)
         
     }
-    
-    public func applyDiff(_ diff: Set<DiffStep<IndexPath>>, completion: ((Bool) -> Void)? = nil) {
+
+    public func updateVisible(items updates: Set<Int>, _ callback: (Int) -> Void) {
+        let visibleItems = indexPathsForVisibleItems.map({ $0.row })
+        updates.intersection(Set(visibleItems)).forEach(callback)
+    }
+
+    public func apply(diff: (diff: Set<DiffStep<Int>>, updates: Set<Int>),
+                      section: Int = 0,
+                      completion: ((Bool) -> Void)? = nil,
+                      updateVisibleItem: (Int) -> Void)
+    {
+        apply(diff: diff.diff, section: section, completion: completion)
+        updateVisible(items: diff.updates, updateVisibleItem)
+    }
+
+    public func apply(diff: Set<DiffStep<IndexPath>>, completion: ((Bool) -> Void)? = nil) {
         performBatchUpdates({
             var insertionIndexPaths: [IndexPath] = []
             var deletionIndexPaths: [IndexPath] = []
@@ -98,5 +146,18 @@ public extension UICollectionView {
             self.insertItems(at: insertionIndexPaths)
             self.deleteItems(at: deletionIndexPaths)
         }, completion: completion)
+    }
+
+    @objc(updateVisibleItemsByIndexPath::)
+    public func updateVisible(items updates: Set<IndexPath>, _ callback: (IndexPath) -> Void) {
+        updates.intersection(Set(indexPathsForVisibleItems)).forEach(callback)
+    }
+
+    public func apply(diff: (diff: Set<DiffStep<IndexPath>>, updates: Set<IndexPath>),
+                      completion: ((Bool) -> Void)? = nil,
+                      updateVisibleItem: (IndexPath) -> Void)
+    {
+        apply(diff: diff.diff, completion: completion)
+        updateVisible(items: diff.updates, updateVisibleItem)
     }
 }

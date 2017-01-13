@@ -20,7 +20,7 @@ class CollectionViewController: UICollectionViewController {
         Emoji(identifier: "6",  name: "Cool",          image: UIImage(named: "cool")!,              color: .white),
         Emoji(identifier: "7",  name: "Dog",           image: UIImage(named: "dog")!,               color: .white),
         Emoji(identifier: "8",  name: "Heart",         image: UIImage(named: "heart")!,             color: .white),
-        Emoji(identifier: "9",  name: "Monkey",        image: UIImage(named: "monkey")!,            color: .white),
+        Emoji(identifier: "9",  name: "Monkey",        image: UIImage(named: "monkey" )!,            color: .white),
         Emoji(identifier: "10", name: "Nerd",          image: UIImage(named: "nerd")!,              color: .white),
         Emoji(identifier: "11", name: "Wink",          image: UIImage(named: "wink")!,              color: .white),
         Emoji(identifier: "12", name: "Parrot",        image: UIImage.gifWithName("parrot")!,       color: .white),
@@ -45,19 +45,15 @@ class CollectionViewController: UICollectionViewController {
     
     func refresh(_ control: UIRefreshControl) {
         let newArray = randomize(possibleEmojis)
-        let (diff, updates) = emojis.tableDiff(newArray)
-
-        let visibleIndices = Set((self.collectionView?.indexPathsForVisibleItems ?? []).map { $0.item })
-        for index in updates.intersection(visibleIndices) {
-            let cell = self.collectionView?.cellForItem(at: IndexPath(item: index, section: 0)) as? EmojiCell
-            cell?.update(self.emojis[index])
-        }
-        
+        let diff = emojis.tableDiff(newArray)
         emojis = newArray
-        collectionView?.applyDiff(diff, completion: {(finished) -> Void in
+
+        collectionView?.apply(diff: diff, completion: { _ in
             control.endRefreshing()
+        }, updateVisibleItem: { item in
+            let cell = self.collectionView?.cellForItem(at: IndexPath(item: item, section: 0)) as? EmojiCell
+            cell?.update(self.emojis[item])
         })
-        
     }
     
     func randomize(_ array: [Emoji]) -> [Emoji] {
