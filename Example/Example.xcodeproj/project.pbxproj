@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C62118B11E292CF0002A5BF8 /* TableDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62118B01E292CF0002A5BF8 /* TableDiff.framework */; };
 		C690BF661D512D97001DD46A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C690BF651D512D97001DD46A /* AppDelegate.swift */; };
 		C690BF681D512D97001DD46A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C690BF671D512D97001DD46A /* ViewController.swift */; };
 		C690BF6B1D512D97001DD46A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C690BF691D512D97001DD46A /* Main.storyboard */; };
@@ -22,8 +23,6 @@
 		C690BFA61D512E92001DD46A /* parrot.gif in Resources */ = {isa = PBXBuildFile; fileRef = C690BFA11D512E92001DD46A /* parrot.gif */; };
 		C690BFA71D512E92001DD46A /* parrotcop.gif in Resources */ = {isa = PBXBuildFile; fileRef = C690BFA21D512E92001DD46A /* parrotcop.gif */; };
 		C690BFA81D512E92001DD46A /* sadparrot.gif in Resources */ = {isa = PBXBuildFile; fileRef = C690BFA31D512E92001DD46A /* sadparrot.gif */; };
-		C690BFAC1D512F61001DD46A /* TableDiff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C690BFAA1D512EE6001DD46A /* TableDiff.framework */; };
-		C690BFAD1D512F61001DD46A /* TableDiff.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C690BFAA1D512EE6001DD46A /* TableDiff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,7 +32,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C690BFAD1D512F61001DD46A /* TableDiff.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,6 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C62118B01E292CF0002A5BF8 /* TableDiff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TableDiff.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Example-erffsvjwmezrlyelpdwmuxjihuch/Build/Products/Debug-iphonesimulator/TableDiff.framework"; sourceTree = "<group>"; };
 		C690BF621D512D97001DD46A /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C690BF651D512D97001DD46A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C690BF671D512D97001DD46A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,7 +57,6 @@
 		C690BFA11D512E92001DD46A /* parrot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = parrot.gif; sourceTree = "<group>"; };
 		C690BFA21D512E92001DD46A /* parrotcop.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = parrotcop.gif; sourceTree = "<group>"; };
 		C690BFA31D512E92001DD46A /* sadparrot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sadparrot.gif; sourceTree = "<group>"; };
-		C690BFAA1D512EE6001DD46A /* TableDiff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TableDiff.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,18 +64,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C690BFAC1D512F61001DD46A /* TableDiff.framework in Frameworks */,
+				C62118B11E292CF0002A5BF8 /* TableDiff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C62118AF1E292CF0002A5BF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C62118B01E292CF0002A5BF8 /* TableDiff.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C690BF591D512D97001DD46A = {
 			isa = PBXGroup;
 			children = (
 				C690BF641D512D97001DD46A /* Example */,
 				C690BF631D512D97001DD46A /* Products */,
+				C62118AF1E292CF0002A5BF8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,7 +108,6 @@
 				C690BF6C1D512D97001DD46A /* Assets.xcassets */,
 				C690BF6E1D512D97001DD46A /* LaunchScreen.storyboard */,
 				C690BF711D512D97001DD46A /* Info.plist */,
-				C690BFAA1D512EE6001DD46A /* TableDiff.framework */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -157,11 +163,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = WillowTree;
 				TargetAttributes = {
 					C690BF611D512D97001DD46A = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -252,8 +259,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -297,8 +306,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -317,6 +328,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -333,6 +345,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Willowtree.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -348,6 +361,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Willowtree.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -370,6 +384,7 @@
 				C690BF761D512D97001DD46A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

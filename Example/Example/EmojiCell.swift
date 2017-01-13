@@ -12,14 +12,14 @@ class EmojiCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
 
-    func setup(emoji: Emoji) {
+    func setup(_ emoji: Emoji) {
         backgroundColor = emoji.color
         imageView.image = emoji.image
     }
 
-    func update(emoji: Emoji) {
-        UIView.animateWithDuration(0.5) { [weak self] in
+    func update(_ emoji: Emoji) {
+        UIView.animate(withDuration: 0.5, animations: { [weak self] in
             self?.backgroundColor = emoji.color
-        }
+        }) 
     }
 }
