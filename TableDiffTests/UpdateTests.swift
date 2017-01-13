@@ -51,8 +51,8 @@ class UpdateTests: XCTestCase {
         let y: [Widget] = [b, a2, c]
 
         for impl in allImplementations {
-            let (_, updates) = x.tableDiff(y, implementation: impl, updateStyle: .pre)
-            XCTAssertEqual([0], updates)
+            let (_, updates) = x.tableDiff(y, implementation: impl)
+            XCTAssertEqual([1], updates)
         }
     }
 
@@ -63,21 +63,8 @@ class UpdateTests: XCTestCase {
         let x: [Widget] = [a, b, c]
         let y: [Widget] = [b, a2, c]
         for impl in allImplementations {
-            let (_, updates) = x.tableDiff(y, implementation: impl, updateStyle: .post)
-            XCTAssertEqual([1], updates)
-        }
-    }
-
-    func testDefaultUpdateStyle() {
-        var a2 = a
-        a2.name = "Zoomatic Classic"
-
-        let x: [Widget] = [a, b, c]
-        let y: [Widget] = [b, a2, c]
-        for impl in allImplementations {
-            let (_, expectedPre) = x.tableDiff(y, implementation: impl, updateStyle: .pre)
             let (_, updates) = x.tableDiff(y, implementation: impl)
-            XCTAssertEqual(expectedPre, updates)
+            XCTAssertEqual([1], updates)
         }
     }
 }

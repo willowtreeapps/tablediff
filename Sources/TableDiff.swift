@@ -65,11 +65,6 @@ public func ==<Index>(lhs: DiffStep<Index>, rhs: DiffStep<Index>) -> Bool {
     }
 }
 
-public enum UpdateIndicesStyle {
-    case pre
-    case post
-}
-
 public enum Implementation {
     case lcs
     case lcsWithMoves
@@ -78,17 +73,17 @@ public enum Implementation {
 
 public extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable, Self.Index: Comparable, Self.IndexDistance == Int {
     /// Creates a deep diff between two sequences.
-    public func tableDiff(_ b: Self, implementation: Implementation = .allMoves, updateStyle: UpdateIndicesStyle = .pre) ->
+    public func tableDiff(_ b: Self, implementation: Implementation = .allMoves) ->
         (diff: Set<DiffStep<Self.Index>>,
         updates: Set<Self.Index>)
     {
         switch implementation {
         case .lcs:
-            return lcsTableDiff(b, processMoves: false, updateStyle: updateStyle)
+            return lcsTableDiff(b, processMoves: false)
         case .lcsWithMoves:
-            return lcsTableDiff(b, processMoves: true, updateStyle: updateStyle)
+            return lcsTableDiff(b, processMoves: true)
         case .allMoves:
-            return allMovesTableDiff(b, updateStyle: updateStyle)
+            return allMovesTableDiff(b)
         }
     }
 }

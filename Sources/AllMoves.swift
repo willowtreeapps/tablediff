@@ -9,7 +9,7 @@
 import Foundation
 
 extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable, Self.IndexDistance == Int {
-    func allMovesTableDiff(_ other: Self, updateStyle: UpdateIndicesStyle) ->
+    func allMovesTableDiff(_ other: Self) ->
         (diff: Set<DiffStep<Self.Index>>,
         updates: Set<Self.Index>)
     {
@@ -42,8 +42,7 @@ extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable,
 
                 let newItem = b_cache[id]!.item
                 if item != newItem {
-                    let index = updateStyle == .pre ? from : to
-                    updates.insert(index)
+                    updates.insert(to)
                 }
             }
 

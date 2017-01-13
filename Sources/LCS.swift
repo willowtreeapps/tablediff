@@ -36,12 +36,9 @@ extension DiffStep {
 }
 
 extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable {
-    func lcsTableDiff(_ b: Self, processMoves: Bool, updateStyle: UpdateIndicesStyle) ->
-        (diff: Set<DiffStep<Self.Index>>,
-        updates: Set<Self.Index>)
-    {
+    func lcsTableDiff(_ b: Self, processMoves: Bool) -> (diff: Set<DiffStep<Self.Index>>, updates: Set<Self.Index>) {
         let a = self
-        let (table, updates) = buildTable(a, b, updateStyle: updateStyle)
+        let (table, updates) = buildTable(a, b)
         if processMoves {
             let diff: [ItemDiffStep<Self.Iterator.Element, Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
             return (processDiff(diff), updates)
@@ -51,7 +48,7 @@ extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable,
         }
     }
 
-    func buildTable(_ a: Self, _ b: Self, updateStyle: UpdateIndicesStyle) -> ([[Int]], Set<Self.Index>) {
+    func buildTable(_ a: Self, _ b: Self) -> ([[Int]], Set<Self.Index>) {
         var table = Array(repeating: Array(repeating: 0, count: Int(b.count.toIntMax()) + 1), count: Int(a.count.toIntMax()) + 1)
         var updates: Set<Self.Index> = []
         var indexA = a.startIndex
@@ -60,8 +57,7 @@ extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable,
             for (j, secondElement) in b.enumerated() {
                 if firstElement.identifier == secondElement.identifier {
                     if firstElement != secondElement {
-                        print("Indices a: \(indexA) b: \(indexB)")
-                        updates.insert(updateStyle == .pre ? indexA : indexB)
+                        updates.insert(indexB)
                     }
                     table[i+1][j+1] = table[i][j] + 1
                 } else {
