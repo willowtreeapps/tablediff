@@ -161,10 +161,13 @@ public extension UICollectionView {
     public func apply(diff: (diff: Set<DiffStep<Int>>, updates: Set<Int>),
                       section: Int = 0,
                       completion: ((Bool) -> Void)? = nil,
-                      updateVisibleItem: (Int) -> Void)
+                      updateVisibleItem: @escaping (Int) -> Void)
     {
-        apply(diff: diff.diff, section: section, completion: completion)
-        updateVisible(items: diff.updates, updateVisibleItem)
+        apply(diff: diff.diff, section: section) { complete in
+            self.updateVisible(items: diff.updates, updateVisibleItem)
+            completion?(complete)
+        }
+
     }
 
     public func apply(diff: Set<DiffStep<IndexPath>>, completion: ((Bool) -> Void)? = nil) {
@@ -180,9 +183,11 @@ public extension UICollectionView {
 
     public func apply(diff: (diff: Set<DiffStep<IndexPath>>, updates: Set<IndexPath>),
                       completion: ((Bool) -> Void)? = nil,
-                      updateVisibleItem: (IndexPath) -> Void)
+                      updateVisibleItem: @escaping (IndexPath) -> Void)
     {
-        apply(diff: diff.diff, completion: completion)
-        updateVisible(items: diff.updates, updateVisibleItem)
+        apply(diff: diff.diff) { complete in
+            self.updateVisible(items: diff.updates, updateVisibleItem)
+            completion?(complete)
+        }
     }
 }
