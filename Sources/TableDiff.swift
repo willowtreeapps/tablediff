@@ -91,7 +91,7 @@ public extension BidirectionalCollection where Self.Iterator.Element: SequenceDi
 // See http://stackoverflow.com/a/27952689 & comments
 enum Hash {
     static let _hashConstant: UInt64 = 0x9e3779b97f4a7c16
-    static let hashConstant = Int(truncatingBitPattern: _hashConstant)
+    static let hashConstant = Int(truncatingIfNeeded: _hashConstant)
     static func combine<T: Hashable, U: Hashable>(_ lhs: T, _ rhs: U) -> Int {
         let lhs = lhs.hashValue
         let rhs = rhs.hashValue
