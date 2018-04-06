@@ -40,16 +40,16 @@ extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable,
         let a = self
         let (table, updates) = buildTable(a, b)
         if processMoves {
-            let diff: [ItemDiffStep<Self.Iterator.Element, Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
+            let diff: [ItemDiffStep<Self.Iterator.Element, Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(Int64(a.count)), Int(Int64(b.count)))
             return (processDiff(diff), updates)
         } else {
-            let diff: [DiffStep<Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(a.count.toIntMax()), Int(b.count.toIntMax()))
+            let diff: [DiffStep<Self.Index>] = buildDiff(table, a, b, a.endIndex, b.endIndex, Int(Int64(a.count)), Int(Int64(b.count)))
             return (Set(diff), updates)
         }
     }
 
     func buildTable(_ a: Self, _ b: Self) -> ([[Int]], Set<Self.Index>) {
-        var table = Array(repeating: Array(repeating: 0, count: Int(b.count.toIntMax()) + 1), count: Int(a.count.toIntMax()) + 1)
+        var table = Array(repeating: Array(repeating: 0, count: Int(Int64(b.count)) + 1), count: Int(Int64(a.count)) + 1)
         var updates: Set<Self.Index> = []
         var indexA = a.startIndex
         for (i, firstElement) in a.enumerated() {
