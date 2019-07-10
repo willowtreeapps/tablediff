@@ -143,6 +143,16 @@ public extension UICollectionView {
         self.deleteItems(at: deletionIndexPaths)
     }
 
+    public func updateVisible(items updates: Set<Int>, _ callback: (Int) -> Void) {
+        let visibleItems = indexPathsForVisibleItems.map({ $0.row })
+        updates.intersection(Set(visibleItems)).forEach(callback)
+    }
+
+    @objc(updateVisibleItemsByIndexPath::)
+    public func updateVisible(items updates: Set<IndexPath>, _ callback: (IndexPath) -> Void) {
+        updates.intersection(Set(indexPathsForVisibleItems)).forEach(callback)
+    }
+    
     public func apply(diff: Set<DiffStep<Int>>,
                       section: Int = 0,
                       updateDataSource: (() -> Void),
@@ -154,12 +164,16 @@ public extension UICollectionView {
         }, completion: completion)
         
     }
-
-    public func updateVisible(items updates: Set<Int>, _ callback: (Int) -> Void) {
-        let visibleItems = indexPathsForVisibleItems.map({ $0.row })
-        updates.intersection(Set(visibleItems)).forEach(callback)
+    
+    public func apply(diff: Set<DiffStep<IndexPath>>,
+                      updateDataSource: (() -> Void),
+                      completion: ((Bool) -> Void)? = nil) {
+        performBatchUpdates({
+            updateDataSource()
+            self.applyWithoutBatch(diff: diff)
+        }, completion: completion)
     }
-
+    
     public func apply(diff: (diff: Set<DiffStep<Int>>, updates: Set<Int>),
                       section: Int = 0,
                       updateDataSource: (() -> Void),
@@ -169,24 +183,10 @@ public extension UICollectionView {
         apply(diff: diff.diff,
               section: section,
               updateDataSource: updateDataSource) { complete in
-            self.updateVisible(items: diff.updates, updateVisibleItem)
-            completion?(complete)
+                self.updateVisible(items: diff.updates, updateVisibleItem)
+                completion?(complete)
         }
-
-    }
-
-    public func apply(diff: Set<DiffStep<IndexPath>>,
-                      updateDataSource: (() -> Void),
-                      completion: ((Bool) -> Void)? = nil) {
-        performBatchUpdates({
-            updateDataSource()
-            self.applyWithoutBatch(diff: diff)
-        }, completion: completion)
-    }
-
-    @objc(updateVisibleItemsByIndexPath::)
-    public func updateVisible(items updates: Set<IndexPath>, _ callback: (IndexPath) -> Void) {
-        updates.intersection(Set(indexPathsForVisibleItems)).forEach(callback)
+        
     }
 
     public func apply(diff: (diff: Set<DiffStep<IndexPath>>, updates: Set<IndexPath>),
