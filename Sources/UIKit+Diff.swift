@@ -145,9 +145,11 @@ public extension UICollectionView {
 
     public func apply(diff: Set<DiffStep<Int>>,
                       section: Int = 0,
+                      updateDataSource: (() -> Void),
                       completion: ((Bool) -> Void)? = nil)
     {
         performBatchUpdates({
+            updateDataSource()
             self.applyWithoutBatch(diff: diff, section: section)
         }, completion: completion)
         
@@ -160,18 +162,24 @@ public extension UICollectionView {
 
     public func apply(diff: (diff: Set<DiffStep<Int>>, updates: Set<Int>),
                       section: Int = 0,
+                      updateDataSource: (() -> Void),
                       completion: ((Bool) -> Void)? = nil,
                       updateVisibleItem: @escaping (Int) -> Void)
     {
-        apply(diff: diff.diff, section: section) { complete in
+        apply(diff: diff.diff,
+              section: section,
+              updateDataSource: updateDataSource) { complete in
             self.updateVisible(items: diff.updates, updateVisibleItem)
             completion?(complete)
         }
 
     }
 
-    public func apply(diff: Set<DiffStep<IndexPath>>, completion: ((Bool) -> Void)? = nil) {
+    public func apply(diff: Set<DiffStep<IndexPath>>,
+                      updateDataSource: (() -> Void),
+                      completion: ((Bool) -> Void)? = nil) {
         performBatchUpdates({
+            updateDataSource()
             self.applyWithoutBatch(diff: diff)
         }, completion: completion)
     }
@@ -182,10 +190,11 @@ public extension UICollectionView {
     }
 
     public func apply(diff: (diff: Set<DiffStep<IndexPath>>, updates: Set<IndexPath>),
+                      updateDataSource: (() -> Void),
                       completion: ((Bool) -> Void)? = nil,
                       updateVisibleItem: @escaping (IndexPath) -> Void)
     {
-        apply(diff: diff.diff) { complete in
+        apply(diff: diff.diff, updateDataSource: updateDataSource) { complete in
             self.updateVisible(items: diff.updates, updateVisibleItem)
             completion?(complete)
         }
