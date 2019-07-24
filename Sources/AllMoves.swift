@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable, Self.IndexDistance == Int {
+extension BidirectionalCollection where Self.Iterator.Element: SequenceDiffable, Self.Index: Hashable {
     func allMovesTableDiff(_ other: Self) ->
         (diff: Set<DiffStep<Self.Index>>,
         updates: Set<Self.Index>)

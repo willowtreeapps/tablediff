@@ -11,8 +11,8 @@ import UIKit
 public extension UITableView {
     public func apply(diff: Set<DiffStep<Int>>,
                       section: Int = 0,
-                      insertRowAnimation: UITableViewRowAnimation = .automatic,
-                      deleteRowAnimation: UITableViewRowAnimation = .automatic)
+                      insertRowAnimation: UITableView.RowAnimation = .automatic,
+                      deleteRowAnimation: UITableView.RowAnimation = .automatic)
     {
         beginUpdates()
         applyWithoutBatch(diff: diff,
@@ -31,8 +31,8 @@ public extension UITableView {
 
     public func apply(diff: (diff: Set<DiffStep<Int>>, updates: Set<Int>),
                       section: Int = 0,
-                      insertRowAnimation insert: UITableViewRowAnimation = .automatic,
-                      deleteRowAnimation delete: UITableViewRowAnimation = .automatic,
+                      insertRowAnimation insert: UITableView.RowAnimation = .automatic,
+                      deleteRowAnimation delete: UITableView.RowAnimation = .automatic,
                       updateVisibleRow: (Int) -> Void)
     {
         apply(diff: diff.diff, section: section, insertRowAnimation: insert, deleteRowAnimation: delete)
@@ -40,8 +40,8 @@ public extension UITableView {
     }
     
     public func apply(diff: Set<DiffStep<IndexPath>>,
-                      insertRowAnimation: UITableViewRowAnimation = .automatic,
-                      deleteRowAnimation: UITableViewRowAnimation = .automatic)
+                      insertRowAnimation: UITableView.RowAnimation = .automatic,
+                      deleteRowAnimation: UITableView.RowAnimation = .automatic)
     {
         beginUpdates()
         self.applyWithoutBatch(diff: diff,
@@ -59,8 +59,8 @@ public extension UITableView {
     }
 
     public func apply(diff: (diff: Set<DiffStep<IndexPath>>, updates: Set<IndexPath>),
-                      insertRowAnimation insert: UITableViewRowAnimation = .automatic,
-                      deleteRowAnimation delete: UITableViewRowAnimation = .automatic,
+                      insertRowAnimation insert: UITableView.RowAnimation = .automatic,
+                      deleteRowAnimation delete: UITableView.RowAnimation = .automatic,
                       updateVisibleRow: (IndexPath) -> Void)
     {
         apply(diff: diff.diff, insertRowAnimation: insert, deleteRowAnimation: delete)
@@ -68,8 +68,8 @@ public extension UITableView {
     }
 
     public func applyWithoutBatch(diff: Set<DiffStep<Int>>, section: Int,
-                                  insertRowAnimation: UITableViewRowAnimation = .automatic,
-                                  deleteRowAnimation: UITableViewRowAnimation = .automatic) {
+                                  insertRowAnimation: UITableView.RowAnimation = .automatic,
+                                  deleteRowAnimation: UITableView.RowAnimation = .automatic) {
         var insertionIndexPaths: [IndexPath] = []
         var deletionIndexPaths: [IndexPath] = []
         for step in diff {
@@ -88,8 +88,8 @@ public extension UITableView {
     }
 
     public func applyWithoutBatch(diff: Set<DiffStep<IndexPath>>,
-                                  insertRowAnimation: UITableViewRowAnimation = .automatic,
-                                  deleteRowAnimation: UITableViewRowAnimation = .automatic) {
+                                  insertRowAnimation: UITableView.RowAnimation = .automatic,
+                                  deleteRowAnimation: UITableView.RowAnimation = .automatic) {
         var insertionIndexPaths: [IndexPath] = []
         var deletionIndexPaths: [IndexPath] = []
         for step in diff {
